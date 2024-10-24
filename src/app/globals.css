@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  background-color: rgb(59, 59, 59);
+}
+
 .gradient-text {
   background-image: linear-gradient(90deg, rgb(104, 65, 151), white);
   background-clip: text;
