@@ -26,3 +26,18 @@ export interface Item {
   data: DataItem[];
   links: Link[];
 }
+
+export interface CollectionLink {
+  href?: string;
+  rel?: string;
+}
+
+export interface ApiResponse {
+  collection: {
+    items: Item[];
+    links: CollectionLink[];
+    metadata: {
+      total_hits: number;
+    };
+  };
+}

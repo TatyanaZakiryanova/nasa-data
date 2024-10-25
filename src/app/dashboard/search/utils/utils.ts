@@ -1,4 +1,4 @@
-import { Item, Link, Photo } from '../types';
+import { CollectionLink, Item, Link, Photo } from '../types';
 
 //функция для извлечения данных о фото из ответа API
 export const extractPhotosData = (items: Item[]): Photo[] => {
@@ -19,4 +19,13 @@ export const extractPhotosData = (items: Item[]): Photo[] => {
       };
     }) || []
   );
+};
+
+//функция для извлечения ссылок для пагинации из ответа API
+export const extractPaginationLinks = (
+  links: CollectionLink[],
+): { nextPageUrl: string; prevPageUrl: string } => {
+  const nextPageUrl = links?.find((link: CollectionLink) => link.rel === 'next')?.href || '';
+  const prevPageUrl = links?.find((link: CollectionLink) => link.rel === 'prev')?.href || '';
+  return { nextPageUrl, prevPageUrl };
 };

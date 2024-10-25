@@ -4,10 +4,11 @@ import { ChangeEvent, useCallback, useState } from 'react';
 
 import Button from '@/app/ui/button';
 import Input from '@/app/ui/input';
-
-import { Photo } from './types';
+import Pagination from '@/app/ui/pagination';
 import PhotoCard from '@/app/ui/photo-card';
-import { extractPhotosData } from './utils/utils';
+
+import { ApiResponse, Photo } from './types';
+import { extractPaginationLinks, extractPhotosData } from './utils/utils';
 
 export default function Search() {
   const [photos, setPhotos] = useState<Photo[]>([]);
@@ -16,6 +17,8 @@ export default function Search() {
   const [error, setError] = useState<boolean>(false);
   const [isSearched, setIsSearched] = useState<boolean>(false);
   const [totalItems, setTotalItems] = useState<number>(0);
+  const [currentPageUrl, setCurrentPageUrl] = useState<string | null>(null);
+  const [prevPageUrl, setPrevPageUrl] = useState<string | null>(null);
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
@@ -31,12 +34,15 @@ export default function Search() {
       setIsSearched(true);
       try {
         const response = await fetch(url);
-        const data = await response.json();
+        const data: ApiResponse = await response.json();
         const photosData = extractPhotosData(data.collection.items);
+        const { nextPageUrl, prevPageUrl } = extractPaginationLinks(data.collection.links);
         const totalItems = data.collection.metadata?.total_hits || 0;
+        setCurrentPageUrl(nextPageUrl);
+        setPrevPageUrl(prevPageUrl);
         setPhotos(photosData);
         setTotalItems(totalItems);
-      } catch (error) {
+      } catch {
         setError(true);
       } finally {
         setLoading(false);
@@ -91,6 +97,14 @@ export default function Search() {
           />
         ))}
       </div>
+      {photos.length > 0 && (
+        <Pagination
+          prevPageUrl={prevPageUrl}
+          nextPageUrl={currentPageUrl}
+          fetchData={fetchData}
+          loading={loading}
+        />
+      )}
     </>
   );
 }
