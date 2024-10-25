@@ -1,9 +1,12 @@
 'use client';
 
 import { ChangeEvent, useCallback, useState } from 'react';
-import { Item, Link, Photo } from './types';
-import Input from '@/app/ui/input';
+
 import Button from '@/app/ui/button';
+import Input from '@/app/ui/input';
+
+import { Item, Link, Photo } from './types';
+import PhotoCard from '@/app/ui/photo-card';
 
 export default function Search() {
   const [photos, setPhotos] = useState<Photo[]>([]);
@@ -15,19 +18,25 @@ export default function Search() {
     setSearchValue(e.target.value);
   };
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     setLoading(true);
     setError(false);
     setPhotos([]);
     try {
       const response = await fetch(`https://images-api.nasa.gov/search?q=${searchValue}`);
       const data = await response.json();
-      const photosData =
+      const photosData: Photo[] =
         data.collection.items.map((item: Item) => {
-          const imageLink = item.links?.find((link: Link) => link.rel === 'preview')?.href;
+          const imageLinkPreview = item.links?.find((link: Link) => link.rel === 'preview')?.href;
+          const imageLinkFull =
+            item.links?.find((link: Link) => link.rel === 'captions')?.href || imageLinkPreview;
           return {
             title: item.data[0]?.title || 'No title',
-            imageLink,
+            description: item.data[0]?.description || 'No description',
+            imageLink: imageLinkPreview,
+            fullImageLink: imageLinkFull,
+            date_created: item.data[0]?.date_created || 'Unknown date',
+            center: item.data[0]?.center || 'Unknown center',
           };
         }) || [];
       setPhotos(photosData);
@@ -36,7 +45,7 @@ export default function Search() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [searchValue]);
 
   const searchKey = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -66,14 +75,14 @@ export default function Search() {
       </div>
       {loading && <p>Loading...</p>}
       {error && <p>Something went wrong</p>}
-      <div>
-        {photos.map((photo, index) => (
-          <div key={index}>
-            <h3>{photo.title}</h3>
-            {photo.imageLink && <img src={photo.imageLink} alt={photo.title} />}
-          </div>
-        ))}
-      </div>
+      {photos.map((photo) => (
+        <PhotoCard
+          key={photo.nasa_id}
+          title={photo.title}
+          imageUrl={photo.imageLink}
+          date={photo.date_created}
+        />
+      ))}
     </>
   );
 }

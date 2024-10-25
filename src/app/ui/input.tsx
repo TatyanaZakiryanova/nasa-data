@@ -46,4 +46,5 @@ const Input: React.FC<InputProps> = React.memo(
   },
 );
 
+Input.displayName = 'Input';
 export default Input;
