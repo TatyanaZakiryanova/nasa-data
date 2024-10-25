@@ -1,7 +1,9 @@
 'use client';
 
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useCallback, useState } from 'react';
 import { Item, Link, Photo } from './types';
+import Input from '@/app/ui/input';
+import Button from '@/app/ui/button';
 
 export default function Search() {
   const [photos, setPhotos] = useState<Photo[]>([]);
@@ -36,17 +38,32 @@ export default function Search() {
     }
   };
 
+  const searchKey = useCallback(
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === 'Enter') {
+        fetchData();
+      }
+    },
+    [fetchData],
+  );
+
   return (
     <>
-      <input
-        type="text"
-        value={searchValue}
-        onChange={handleSearch}
-        placeholder="Search for photos..."
-      />
-      <button onClick={fetchData} disabled={loading}>
-        {loading ? 'Searching...' : 'Search'}
-      </button>
+      <div className="mb-5 flex flex-col justify-center md:flex-row">
+        <Input
+          id="Search-input"
+          name="Search"
+          inputValue={searchValue}
+          handleInput={handleSearch}
+          searchKey={searchKey}
+          loading={loading}
+          className="mb-3 w-full p-3 md:mb-0 md:mr-3 md:w-[400px]"
+        >
+          <Button onClick={fetchData} disabled={loading} className="px-5 py-2 md:w-auto">
+            {loading ? 'Searching...' : 'Search'}
+          </Button>
+        </Input>
+      </div>
       {loading && <p>Loading...</p>}
       {error && <p>Something went wrong</p>}
       <div>
