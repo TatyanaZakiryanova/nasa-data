@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Loader from './loader/loader';
 
 interface InputProps {
   id: string;
@@ -41,6 +42,7 @@ const Input: React.FC<InputProps> = React.memo(
           className={`rounded-lg border-none text-base text-black outline-none ${className}`}
         />
         {children}
+        {loading && <Loader />}
       </>
     );
   },
