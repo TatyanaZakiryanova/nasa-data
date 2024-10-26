@@ -51,13 +51,19 @@ export default function Search() {
     [searchValue],
   );
 
+  const handleSearchClick = useCallback(() => {
+    if (searchValue.trim()) {
+      fetchData();
+    }
+  }, [searchValue, fetchData]);
+
   const searchKey = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
-      if (e.key === 'Enter') {
+      if (e.key === 'Enter' && searchValue.trim()) {
         fetchData();
       }
     },
-    [fetchData],
+    [searchValue, fetchData],
   );
 
   return (
@@ -72,7 +78,7 @@ export default function Search() {
           loading={loading}
           className="mb-3 w-full p-3 md:mb-0 md:mr-3 md:w-[400px]"
         >
-          <Button onClick={fetchData} disabled={loading} className="px-5 py-2 md:w-auto">
+          <Button onClick={handleSearchClick} disabled={loading} className="px-5 py-2 md:w-auto">
             {loading ? 'Searching...' : 'Search'}
           </Button>
         </Input>
