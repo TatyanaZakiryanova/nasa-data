@@ -2,23 +2,26 @@
 
 import React from 'react';
 
+import { useAppDispatch } from '../redux/hooks';
+import { fetchPhotos } from '../redux/photos/asyncActions';
 import Button from './button';
 
 interface PaginationProps {
   prevPageUrl: string | null;
   nextPageUrl: string | null;
-  fetchData: (url: string) => void;
   loading: boolean;
 }
 
 const Pagination: React.FC<PaginationProps> = React.memo(
-  ({ prevPageUrl, nextPageUrl, fetchData, loading }) => {
+  ({ prevPageUrl, nextPageUrl, loading }) => {
+    const dispatch = useAppDispatch();
+
     return (
       <div className="mt-2.5 flex justify-center">
         <Button
           onClick={() => {
             if (prevPageUrl) {
-              fetchData(prevPageUrl);
+              dispatch(fetchPhotos({ url: prevPageUrl }));
             }
           }}
           disabled={!prevPageUrl || loading}
@@ -29,10 +32,10 @@ const Pagination: React.FC<PaginationProps> = React.memo(
         <Button
           onClick={() => {
             if (nextPageUrl) {
-              fetchData(nextPageUrl);
+              dispatch(fetchPhotos({ url: nextPageUrl }));
             }
           }}
-          disabled={!nextPageUrl || loading}
+          disabled={!nextPageUrl}
           className="w-28 px-4 py-2 text-center"
         >
           Next
