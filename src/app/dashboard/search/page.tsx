@@ -10,10 +10,15 @@ import Pagination from '@/app/ui/pagination';
 import PhotoCard from '@/app/ui/photo-card';
 
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import Modal from '@/app/ui/modal';
+import { Photo } from './types';
+import PhotoModal from '@/app/ui/photo-modal';
 
 export default function Search() {
   const [searchValue, setSearchValue] = useState<string>('');
   const [isSearched, setIsSearched] = useState<boolean>(false);
+  const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
   const { photos, status, totalItems, prevPageUrl, nextPageUrl } = useAppSelector(
@@ -26,20 +31,30 @@ export default function Search() {
 
   const handleSearchClick = useCallback(() => {
     if (searchValue.trim()) {
-      dispatch(fetchPhotos({ searchValue }));
       setIsSearched(true);
+      dispatch(fetchPhotos({ searchValue }));
     }
   }, [searchValue, dispatch]);
 
   const searchKey = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === 'Enter' && searchValue.trim()) {
-        dispatch(fetchPhotos({ searchValue }));
         setIsSearched(true);
+        dispatch(fetchPhotos({ searchValue }));
       }
     },
     [searchValue, dispatch],
   );
+
+  const openModal = (photo: Photo) => {
+    setIsModalOpen(true);
+    setSelectedPhoto(photo);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedPhoto(null);
+  };
 
   return (
     <>
@@ -84,6 +99,7 @@ export default function Search() {
             title={photo.title}
             imageUrl={photo.imageLink}
             date={photo.date_created}
+            onClick={() => openModal(photo)}
           />
         ))}
       </div>
@@ -93,6 +109,16 @@ export default function Search() {
           nextPageUrl={nextPageUrl}
           loading={status === Status.LOADING}
         />
+      )}
+      {selectedPhoto && (
+        <Modal isOpen={isModalOpen} onClose={closeModal} title={selectedPhoto.title}>
+          <PhotoModal
+            imageSrc={selectedPhoto.fullImageLink || selectedPhoto.imageLink}
+            description={selectedPhoto.description}
+            date_created={selectedPhoto.date_created}
+            center={selectedPhoto.center}
+          />
+        </Modal>
       )}
     </>
   );
