@@ -2,6 +2,7 @@
 
 import { ChangeEvent, useCallback, useEffect, useState } from 'react';
 
+import { useAppDispatch, useAppSelector } from '@/app/redux/hooks';
 import { fetchPhotos } from '@/app/redux/photos/asyncActions';
 import { Status } from '@/app/redux/photos/types';
 import Button from '@/app/ui/button';
@@ -10,8 +11,9 @@ import Modal from '@/app/ui/modal';
 import Pagination from '@/app/ui/pagination';
 import PhotoCard from '@/app/ui/photo-card';
 import PhotoModal from '@/app/ui/photo-modal';
-import { useAppDispatch, useAppSelector } from '@/app/redux/hooks';
+
 import { InitialPhoto, Photo } from '../types';
+import StatusMessage from './status-message';
 
 interface SearchProps {
   initialPhotos: InitialPhoto[];
@@ -85,21 +87,12 @@ export default function Search({ initialPhotos }: SearchProps) {
           </Button>
         </Input>
       </div>
-      {!(status === Status.SUCCESS) && !isSearched && (
-        <p className="flex justify-center">Search for amazing space photos provided by NASA:</p>
-      )}
-      {status === Status.ERROR && (
-        <p className="my-2.5 text-center text-xl">Unable to complete the request</p>
-      )}
-      {!(status === Status.LOADING) &&
-        !(status === Status.ERROR) &&
-        isSearched &&
-        photos.length === 0 && (
-          <p className="my-2.5 text-center text-xl">No photos were found for this request</p>
-        )}
-      {photos.length > 0 && (
-        <p className="my-2.5 text-center text-sm">Results found: {totalItems}</p>
-      )}
+      <StatusMessage
+        status={status}
+        isSearched={isSearched}
+        photos={photos}
+        totalItems={totalItems}
+      />
       <div className="mt-5 flex flex-wrap justify-center">
         {photos.length > 0
           ? photos.map((photo) => (

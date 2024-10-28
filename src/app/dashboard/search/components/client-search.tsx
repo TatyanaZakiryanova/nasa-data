@@ -1,8 +1,10 @@
 'use client';
 
 import { Provider } from 'react-redux';
-import { InitialPhoto } from '../types';
+
 import { store } from '@/app/redux/store';
+
+import { InitialPhoto } from '../types';
 import Search from './search';
 
 interface ClientSearchProps {

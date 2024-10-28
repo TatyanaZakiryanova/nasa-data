@@ -1,5 +1,5 @@
-import { InitialPhoto } from './types';
 import ClientSearch from './components/client-search';
+import { InitialPhoto } from './types';
 
 export default async function SearchPage() {
   //получение подборки начальных фотографий, которая рендерится на стороне сервера
