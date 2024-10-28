@@ -1,3 +1,11 @@
+export interface InitialPhoto {
+  title: string;
+  url: string;
+  copyright: string;
+  date: string;
+  media_type: string;
+}
+
 export interface Photo {
   title: string;
   nasa_id: string;
