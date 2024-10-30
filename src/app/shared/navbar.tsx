@@ -36,7 +36,7 @@ export default function Navbar() {
       </ul>
       <ul className="flex items-center gap-2">
         <li>
-          <Link href="/" className={`${linkClasses}`}>
+          <Link href="/dashboard/login" className={`${linkClasses}`}>
             Login
           </Link>
         </li>
