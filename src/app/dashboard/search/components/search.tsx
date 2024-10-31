@@ -80,7 +80,7 @@ export default function Search({ initialPhotos }: SearchProps) {
         >
           <Button
             onClick={handleSearchClick}
-            disabled={status === Status.LOADING}
+            disabled={status === Status.LOADING || !searchValue}
             className="px-5 py-2 md:w-auto"
           >
             {status === Status.LOADING ? 'Searching...' : 'Search'}
