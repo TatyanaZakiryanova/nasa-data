@@ -76,11 +76,11 @@ export default function Search({ initialPhotos }: SearchProps) {
           handleInput={handleSearch}
           searchKey={searchKey}
           loading={status === Status.LOADING}
-          className="mb-3 w-full p-3 md:mb-0 md:mr-3 md:w-[400px]"
+          className="mb-3 w-full border-none p-3 md:mb-0 md:mr-3 md:w-[400px]"
         >
           <Button
             onClick={handleSearchClick}
-            disabled={status === Status.LOADING}
+            disabled={status === Status.LOADING || !searchValue}
             className="px-5 py-2 md:w-auto"
           >
             {status === Status.LOADING ? 'Searching...' : 'Search'}
