@@ -1,7 +1,5 @@
-import React from 'react';
-
-import Register from '@/app/dashboard/login/components/register';
+import Login from './components/login';
 
 export default function LoginPage() {
-  return <Register />;
+  return <Login />;
 }

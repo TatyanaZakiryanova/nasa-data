@@ -3,6 +3,8 @@
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { addDoc, collection } from 'firebase/firestore';
 import { useFormik } from 'formik';
+import { UserPlus } from 'lucide-react';
+import Link from 'next/link';
 import { useState } from 'react';
 import * as Yup from 'yup';
 
@@ -62,7 +64,10 @@ export default function Register() {
   return (
     <>
       <form onSubmit={formik.handleSubmit} className="flex flex-col gap-4 text-center">
-        <p className="text-xl">Sign In</p>
+        <p className="flex items-center justify-center gap-2 text-xl">
+          <UserPlus size={20} />
+          Sign Up
+        </p>
         <Input
           id="email-input"
           name="email"
@@ -71,7 +76,7 @@ export default function Register() {
           inputValue={formik.values.email}
           handleInput={formik.handleChange}
           handleBlur={formik.handleBlur}
-          className={`w-full p-2 shadow-md md:w-[300px] ${formik.touched.email && formik.errors.email ? 'border-red-500' : ''}`}
+          className={`w-full p-2 shadow-md md:w-[300px]`}
         />
         {formik.touched.email && formik.errors.email ? (
           <span className="text-sm text-red-500">{formik.errors.email}</span>
@@ -84,7 +89,7 @@ export default function Register() {
           inputValue={formik.values.password}
           handleInput={formik.handleChange}
           handleBlur={formik.handleBlur}
-          className={`w-full p-2 shadow-md md:w-[300px] ${formik.touched.password && formik.errors.password ? 'border-red-500' : ''}`}
+          className={`w-full p-2 shadow-md md:w-[300px]`}
         />
         {formik.touched.password && formik.errors.password ? (
           <span className="text-sm text-red-500">{formik.errors.password}</span>
@@ -94,8 +99,14 @@ export default function Register() {
           className="px-5 py-2"
           disabled={!formik.isValid || !formik.dirty || isLoading}
         >
-          {isLoading ? 'In progress...' : 'Sign in'}
+          {isLoading ? 'In progress...' : 'Sign up'}
         </Button>
+        <p className="text-xs">
+          Already registered?{' '}
+          <Link href="/dashboard/login" className="text-purple-600 hover:underline">
+            Sign in
+          </Link>
+        </p>
         <Modal isOpen={modalIsOpen} onClose={() => setModalIsOpen(false)}>
           <p>{modalMessage}</p>
         </Modal>

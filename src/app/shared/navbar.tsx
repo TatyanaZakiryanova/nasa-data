@@ -1,6 +1,6 @@
 'use client';
 
-import { Camera, House, LogIn, Search, User } from 'lucide-react';
+import { Camera, House, LogIn, Search, UserPlus } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -40,8 +40,21 @@ export default function Navbar() {
       <ul className="flex items-center gap-2">
         <li>
           <Link
+            href="/dashboard/registration"
+            className={`${linkClasses} ${pathname === '/dashboard/registration' ? 'bg-customButton font-bold text-white' : 'text-white'}`}
+          >
+            <UserPlus size={20} />
+            Sign Up
+          </Link>
+        </li>
+        <li>
+          <Link
             href="/dashboard/login"
-            className={`${linkClasses} ${pathname === '/dashboard/login' ? 'bg-customButton font-bold text-white' : 'text-white'}`}
+            className={`${linkClasses} ${
+              pathname === '/dashboard/login'
+                ? 'bg-customButton font-bold text-white'
+                : 'text-white'
+            }`}
           >
             <LogIn size={20} />
             Sign In

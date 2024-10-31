@@ -25,7 +25,6 @@ export default function Search({ initialPhotos }: SearchProps) {
   const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [initialStatePhotos, setInitialStatePhotos] = useState<InitialPhoto[]>(initialPhotos);
-
   const dispatch = useAppDispatch();
   const { photos, status, totalItems, prevPageUrl, nextPageUrl } = useAppSelector(
     (state) => state.photos,
