@@ -14,6 +14,7 @@ import Modal from '@/app/ui/modal';
 export default function Register() {
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
   const [modalMessage, setModalMessage] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const formik = useFormik({
     initialValues: {
@@ -27,6 +28,7 @@ export default function Register() {
         .required('Password is required'),
     }),
     onSubmit: async (values) => {
+      setIsLoading(true);
       const { email, password } = values;
       try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -43,6 +45,8 @@ export default function Register() {
         openModal('Registration successful!');
       } catch {
         openModal('Error registering user');
+      } finally {
+        setIsLoading(false);
       }
     },
   });
@@ -58,7 +62,7 @@ export default function Register() {
   return (
     <>
       <form onSubmit={formik.handleSubmit} className="flex flex-col gap-4 text-center">
-        <p className="text-xl">Registration</p>
+        <p className="text-xl">Sign In</p>
         <Input
           id="email-input"
           name="email"
@@ -85,8 +89,12 @@ export default function Register() {
         {formik.touched.password && formik.errors.password ? (
           <span className="text-sm text-red-500">{formik.errors.password}</span>
         ) : null}
-        <Button type="submit" className="px-5 py-2" disabled={!formik.isValid || !formik.dirty}>
-          Register
+        <Button
+          type="submit"
+          className="px-5 py-2"
+          disabled={!formik.isValid || !formik.dirty || isLoading}
+        >
+          {isLoading ? 'In progress...' : 'Sign in'}
         </Button>
         <Modal isOpen={modalIsOpen} onClose={() => setModalIsOpen(false)}>
           <p>{modalMessage}</p>

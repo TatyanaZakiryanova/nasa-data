@@ -1,5 +1,6 @@
 'use client';
 
+import { Camera, House, LogIn, Search, User } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -18,6 +19,7 @@ export default function Navbar() {
               pathname === '/dashboard' ? 'bg-customButton font-bold' : ''
             }`}
           >
+            <Camera size={20} />
             Photo of the day
           </Link>
         </li>
@@ -30,6 +32,7 @@ export default function Navbar() {
                 : 'text-white'
             }`}
           >
+            <Search size={20} />
             Search
           </Link>
         </li>
@@ -40,7 +43,8 @@ export default function Navbar() {
             href="/dashboard/login"
             className={`${linkClasses} ${pathname === '/dashboard/login' ? 'bg-customButton font-bold text-white' : 'text-white'}`}
           >
-            Login
+            <LogIn size={20} />
+            Sign In
           </Link>
         </li>
         <li>
@@ -50,6 +54,7 @@ export default function Navbar() {
               pathname === '/' ? 'bg-customButton font-bold text-white' : 'text-white'
             }`}
           >
+            <House size={20} />
             Home
           </Link>
         </li>
