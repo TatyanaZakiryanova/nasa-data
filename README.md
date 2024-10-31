@@ -1,4 +1,4 @@
-# Universe
+# NASA Data
 
 Приложение с данными [NASA](https://api.nasa.gov/).
 

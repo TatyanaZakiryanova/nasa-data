@@ -1,4 +1,4 @@
-import Register from '@/app/components/register';
+import Register from '@/app/dashboard/login/components/register';
 import React from 'react';
 
 const LoginPage = () => {
