@@ -10,6 +10,7 @@ import { auth } from '@/app/lib/firebase';
 import Button from '@/app/ui/button';
 import Input from '@/app/ui/input';
 import Modal from '@/app/ui/modal';
+import Link from 'next/link';
 
 export default function Login() {
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
@@ -91,6 +92,12 @@ export default function Login() {
         >
           {isLoading ? 'In progress...' : 'Sign in'}
         </Button>
+        <p className="text-xs">
+          Not registered yet?{' '}
+          <Link href="/dashboard/registration" className="text-purple-600 hover:underline">
+            Sign up
+          </Link>
+        </p>
         <Modal isOpen={modalIsOpen} onClose={() => setModalIsOpen(false)}>
           <p>{modalMessage}</p>
         </Modal>
