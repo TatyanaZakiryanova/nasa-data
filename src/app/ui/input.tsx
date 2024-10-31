@@ -11,6 +11,7 @@ interface InputProps {
   placeholder?: string;
   inputValue: string;
   handleInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
   searchKey?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   loading?: boolean;
   children?: React.ReactNode;
@@ -25,6 +26,7 @@ const Input: React.FC<InputProps> = React.memo(
     placeholder = 'Search for photos...',
     inputValue,
     handleInput,
+    handleBlur,
     searchKey,
     children,
     loading,
@@ -39,8 +41,9 @@ const Input: React.FC<InputProps> = React.memo(
           placeholder={placeholder}
           value={inputValue}
           onChange={handleInput}
+          onBlur={handleBlur}
           onKeyUp={searchKey}
-          className={`rounded-lg border-none text-base text-black outline-none ${className}`}
+          className={`rounded-lg border text-base text-black outline-none ${className}`}
         />
         {children}
         {loading && <Loader />}

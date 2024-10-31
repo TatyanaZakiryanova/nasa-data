@@ -36,7 +36,10 @@ export default function Navbar() {
       </ul>
       <ul className="flex items-center gap-2">
         <li>
-          <Link href="/dashboard/login" className={`${linkClasses}`}>
+          <Link
+            href="/dashboard/login"
+            className={`${linkClasses} ${pathname === '/dashboard/login' ? 'bg-customButton font-bold text-white' : 'text-white'}`}
+          >
             Login
           </Link>
         </li>

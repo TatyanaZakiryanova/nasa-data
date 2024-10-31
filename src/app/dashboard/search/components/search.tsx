@@ -76,7 +76,7 @@ export default function Search({ initialPhotos }: SearchProps) {
           handleInput={handleSearch}
           searchKey={searchKey}
           loading={status === Status.LOADING}
-          className="mb-3 w-full p-3 md:mb-0 md:mr-3 md:w-[400px]"
+          className="mb-3 w-full border-none p-3 md:mb-0 md:mr-3 md:w-[400px]"
         >
           <Button
             onClick={handleSearchClick}
