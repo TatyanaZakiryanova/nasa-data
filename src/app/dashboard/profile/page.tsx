@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { doc, DocumentData, getDoc } from 'firebase/firestore';
 import { useAuth } from '@/app/contexts/auth-context';
 import { db } from '@/app/lib/firebase';
+import Loader from '@/app/ui/loader/loader';
 
 export default function Profile() {
   const { user, loading: authLoading } = useAuth();
@@ -38,7 +39,7 @@ export default function Profile() {
   }, [user]);
 
   if (authLoading || isLoading) {
-    return <div>Загрузка...</div>;
+    return <Loader />;
   }
 
   return (
@@ -54,7 +55,7 @@ export default function Profile() {
           {userData.profilePicture && <img src={userData.profilePicture} alt="Profile" />}
         </div>
       ) : (
-        <p>Error</p>
+        <p>User data not found</p>
       )}
     </div>
   );

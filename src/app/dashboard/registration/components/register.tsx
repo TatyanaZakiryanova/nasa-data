@@ -1,7 +1,7 @@
 'use client';
 
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
+import { doc, setDoc } from 'firebase/firestore';
 import { useFormik } from 'formik';
 import { UserPlus } from 'lucide-react';
 import Link from 'next/link';
