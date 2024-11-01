@@ -11,11 +11,13 @@ import { auth } from '@/app/lib/firebase';
 import Button from '@/app/ui/button';
 import Input from '@/app/ui/input';
 import Modal from '@/app/ui/modal';
+import { useRouter } from 'next/navigation';
 
 export default function Login() {
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
   const [modalMessage, setModalMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const router = useRouter();
 
   const formik = useFormik({
     initialValues: {
@@ -36,6 +38,7 @@ export default function Login() {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
         openModal(`Login successful! User: ${user.email}`);
+        router.push('/dashboard/profile');
       } catch {
         openModal('Error logging');
       } finally {

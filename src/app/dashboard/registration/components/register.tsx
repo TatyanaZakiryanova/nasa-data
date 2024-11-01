@@ -12,11 +12,13 @@ import { auth, db } from '@/app/lib/firebase';
 import Button from '@/app/ui/button';
 import Input from '@/app/ui/input';
 import Modal from '@/app/ui/modal';
+import { useRouter } from 'next/navigation';
 
 export default function Register() {
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
   const [modalMessage, setModalMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const router = useRouter();
 
   const formik = useFormik({
     initialValues: {
@@ -45,6 +47,7 @@ export default function Register() {
           roles: ['user'],
         });
         openModal('Registration successful!');
+        router.push('/dashboard/profile');
       } catch {
         openModal('Error registering user');
       } finally {
