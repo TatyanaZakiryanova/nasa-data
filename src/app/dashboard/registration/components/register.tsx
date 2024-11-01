@@ -1,7 +1,7 @@
 'use client';
 
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, doc, setDoc } from 'firebase/firestore';
 import { useFormik } from 'formik';
 import { UserPlus } from 'lucide-react';
 import Link from 'next/link';
@@ -36,7 +36,7 @@ export default function Register() {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
 
-        await addDoc(collection(db, 'users'), {
+        await setDoc(doc(db, 'users', user.uid), {
           uid: user.uid,
           email: user.email,
           profilePicture: user.photoURL || null,
