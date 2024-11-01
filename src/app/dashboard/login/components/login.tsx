@@ -3,6 +3,7 @@
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useFormik } from 'formik';
 import { LogIn } from 'lucide-react';
+import Link from 'next/link';
 import { useState } from 'react';
 import * as Yup from 'yup';
 
@@ -10,7 +11,6 @@ import { auth } from '@/app/lib/firebase';
 import Button from '@/app/ui/button';
 import Input from '@/app/ui/input';
 import Modal from '@/app/ui/modal';
-import Link from 'next/link';
 
 export default function Login() {
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
