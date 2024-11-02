@@ -1,6 +1,7 @@
 'use client';
 
 import { signInWithEmailAndPassword } from 'firebase/auth';
+import { doc, serverTimestamp, updateDoc } from 'firebase/firestore';
 import { useFormik } from 'formik';
 import { LogIn } from 'lucide-react';
 import Link from 'next/link';
@@ -12,7 +13,6 @@ import { auth, db } from '@/app/lib/firebase';
 import Button from '@/app/ui/button';
 import Input from '@/app/ui/input';
 import Modal from '@/app/ui/modal';
-import { doc, serverTimestamp, updateDoc } from 'firebase/firestore';
 
 export default function Login() {
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);

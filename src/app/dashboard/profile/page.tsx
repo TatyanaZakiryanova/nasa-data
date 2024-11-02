@@ -1,6 +1,6 @@
 'use client';
 
-import { doc, DocumentData, getDoc, Timestamp } from 'firebase/firestore';
+import { doc, DocumentData, getDoc } from 'firebase/firestore';
 import { CircleUser } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -9,6 +9,7 @@ import { useAuth } from '@/app/contexts/auth-context';
 import { db } from '@/app/lib/firebase';
 import Loader from '@/app/ui/loader/loader';
 import Modal from '@/app/ui/modal';
+
 import { formatDate } from './utils';
 
 export default function Profile() {
@@ -28,7 +29,7 @@ export default function Profile() {
     const fetchUserData = async () => {
       if (!user) return;
       try {
-        const userDocRef = doc(db, 'users', user?.uid!);
+        const userDocRef = doc(db, 'users', user.uid);
         const userDoc = await getDoc(userDocRef);
 
         if (userDoc.exists()) {
