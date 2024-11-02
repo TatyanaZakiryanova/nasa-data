@@ -47,7 +47,7 @@ export default function Register() {
           roles: ['user'],
         });
         openModal('Registration successful!');
-        router.push('/dashboard/profile');
+        router.replace('/dashboard/profile');
       } catch {
         openModal('Error registering user');
       } finally {

@@ -9,6 +9,7 @@ import { useAuth } from '@/app/contexts/auth-context';
 import { db } from '@/app/lib/firebase';
 import Loader from '@/app/ui/loader/loader';
 import Modal from '@/app/ui/modal';
+import { formatDate } from './utils';
 
 export default function Profile() {
   const { user, loading: authLoading } = useAuth();
@@ -20,13 +21,12 @@ export default function Profile() {
 
   useEffect(() => {
     if (!user && !authLoading) {
-      router.push('/dashboard/login');
+      router.replace('/dashboard/login');
       return;
     }
 
     const fetchUserData = async () => {
-      setIsLoading(true);
-
+      if (!user) return;
       try {
         const userDocRef = doc(db, 'users', user?.uid!);
         const userDoc = await getDoc(userDocRef);
@@ -58,20 +58,6 @@ export default function Profile() {
     setTimeout(() => {
       setModalIsOpen(false);
     }, 2000);
-  };
-
-  const formatDate = (timestamp: Timestamp) => {
-    const date = timestamp.toDate();
-    return date.toLocaleString('en-US', {
-      timeZone: 'UTC',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-      hour12: true,
-    });
   };
 
   return (

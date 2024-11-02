@@ -1,3 +1,4 @@
+import { Loader } from 'lucide-react';
 import React from 'react';
 import { useState } from 'react';
 
@@ -14,7 +15,7 @@ const PhotoModal: React.FC<PhotoModalProps> = React.memo(
 
     return (
       <>
-        {!isImageLoaded && <p>Loading image...</p>}
+        {!isImageLoaded && <Loader className="animate-spin p-2" size={50} />}
         <img
           src={imageSrc}
           alt="Full size"
