@@ -5,7 +5,7 @@ import { useFormik } from 'formik';
 import { LogIn } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import * as Yup from 'yup';
 
 import { auth, db } from '@/app/lib/firebase';
@@ -13,8 +13,6 @@ import Button from '@/app/ui/button';
 import Input from '@/app/ui/input';
 import Modal from '@/app/ui/modal';
 import { doc, serverTimestamp, updateDoc } from 'firebase/firestore';
-import { useAuth } from '@/app/contexts/auth-context';
-import Loader from '@/app/ui/loader/loader';
 
 export default function Login() {
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);

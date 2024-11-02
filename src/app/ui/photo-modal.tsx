@@ -15,7 +15,7 @@ const PhotoModal: React.FC<PhotoModalProps> = React.memo(
 
     return (
       <>
-        {!isImageLoaded && <Loader className="animate-spin p-2" size={50} />}
+        {!isImageLoaded && <Loader className="animate-spin p-2" size={40} />}
         <img
           src={imageSrc}
           alt="Full size"
@@ -23,7 +23,7 @@ const PhotoModal: React.FC<PhotoModalProps> = React.memo(
           onLoad={() => setIsImageLoaded(true)}
         />
         <span className="mb-1 text-[10px]">{date_created}</span>
-        <span className="mb-1 text-[10px]">Center: {center}</span>
+        <span className="mb-1 text-[10px]">Center: {center || 'unknown'}</span>
         <p>{description}</p>
       </>
     );

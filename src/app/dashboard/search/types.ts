@@ -4,6 +4,7 @@ export interface InitialPhoto {
   copyright: string;
   date: string;
   media_type: string;
+  explanation: string;
 }
 
 export interface Photo {

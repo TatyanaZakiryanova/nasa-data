@@ -22,7 +22,7 @@ interface SearchProps {
 export default function Search({ initialPhotos }: SearchProps) {
   const [searchValue, setSearchValue] = useState<string>('');
   const [isSearched, setIsSearched] = useState<boolean>(false);
-  const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
+  const [selectedPhoto, setSelectedPhoto] = useState<Photo | InitialPhoto | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [initialStatePhotos, setInitialStatePhotos] = useState<InitialPhoto[]>(initialPhotos);
   const dispatch = useAppDispatch();
@@ -55,7 +55,7 @@ export default function Search({ initialPhotos }: SearchProps) {
     [searchValue, dispatch],
   );
 
-  const openModal = (photo: Photo) => {
+  const openModal = (photo: Photo | InitialPhoto) => {
     setIsModalOpen(true);
     setSelectedPhoto(photo);
   };
@@ -111,6 +111,7 @@ export default function Search({ initialPhotos }: SearchProps) {
                 imageUrl={initialPhoto.url}
                 copyright={initialPhoto.copyright}
                 date={initialPhoto.date}
+                onClick={() => openModal(initialPhoto)}
               />
             ))}
       </div>
@@ -124,10 +125,18 @@ export default function Search({ initialPhotos }: SearchProps) {
       {selectedPhoto && (
         <Modal isOpen={isModalOpen} onClose={closeModal} title={selectedPhoto.title}>
           <PhotoModal
-            imageSrc={selectedPhoto.fullImageLink || selectedPhoto.imageLink}
-            description={selectedPhoto.description}
-            date_created={selectedPhoto.date_created}
-            center={selectedPhoto.center}
+            imageSrc={
+              'url' in selectedPhoto
+                ? selectedPhoto.url
+                : selectedPhoto.fullImageLink || selectedPhoto.imageLink
+            }
+            description={
+              'description' in selectedPhoto ? selectedPhoto.description : selectedPhoto.explanation
+            }
+            date_created={
+              'date_created' in selectedPhoto ? selectedPhoto.date_created : selectedPhoto.date
+            }
+            center={'center' in selectedPhoto ? selectedPhoto.center : selectedPhoto.copyright}
           />
         </Modal>
       )}
