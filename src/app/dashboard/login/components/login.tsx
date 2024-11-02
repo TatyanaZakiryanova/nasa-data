@@ -4,14 +4,15 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useFormik } from 'formik';
 import { LogIn } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import * as Yup from 'yup';
 
-import { auth } from '@/app/lib/firebase';
+import { auth, db } from '@/app/lib/firebase';
 import Button from '@/app/ui/button';
 import Input from '@/app/ui/input';
 import Modal from '@/app/ui/modal';
-import { useRouter } from 'next/navigation';
+import { doc, serverTimestamp, updateDoc } from 'firebase/firestore';
 
 export default function Login() {
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
@@ -37,10 +38,18 @@ export default function Login() {
       try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
+        const userDocRef = doc(db, 'users', user.uid);
+
+        await updateDoc(userDocRef, {
+          lastLogin: serverTimestamp(),
+        });
+
+        console.log('User signed in and lastLogin updated');
+
         openModal(`Login successful! User: ${user.email}`);
         router.push('/dashboard/profile');
       } catch {
-        openModal('Error logging');
+        openModal('Error logging in');
       } finally {
         setIsLoading(false);
       }

@@ -1,12 +1,13 @@
 'use client';
 
 import { doc, DocumentData, getDoc, Timestamp } from 'firebase/firestore';
+import { CircleUser } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import { useAuth } from '@/app/contexts/auth-context';
 import { db } from '@/app/lib/firebase';
 import Loader from '@/app/ui/loader/loader';
-import { useRouter } from 'next/navigation';
 import Modal from '@/app/ui/modal';
 
 export default function Profile() {
@@ -43,7 +44,7 @@ export default function Profile() {
     };
 
     fetchUserData();
-  }, [user]);
+  }, [user, router]);
 
   if (authLoading || isLoading) {
     return <Loader />;
@@ -73,15 +74,19 @@ export default function Profile() {
 
   return (
     <div>
-      <h1 className="mb-3 text-2xl">Profile</h1>
+      <h1 className="mb-3 flex flex-col items-center text-2xl">
+        Profile
+        <CircleUser size={60} />
+      </h1>
       {userData ? (
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-2">
             <h2>{userData.email}</h2>
-            <p className="text-xs">Created at: {formatDate(userData.createdAt)}</p>
+            <p className="text-xs">Created at: {formatDate(userData.createdAt)} UTC+3</p>
+            <p className="text-xs">Last login: {formatDate(userData.lastLogin)} UTC+3</p>
             {userData.profilePicture && <img src={userData.profilePicture} alt="Profile" />}
           </div>
-          <h1 className="mb-3 text-xl">Collection</h1>
+          <h1 className="mb-3 text-xl">Photo collection</h1>
         </div>
       ) : (
         <p>User data not found</p>

@@ -15,7 +15,7 @@ export default function StatusMessage({
   photos,
   totalItems,
 }: StatusMessageProps) {
-  if (!isSearched && status !== Status.SUCCESS) {
+  if (!isSearched && status !== Status.SUCCESS && status !== Status.LOADING) {
     return <p className="flex justify-center">Search for amazing space photos provided by NASA:</p>;
   }
 

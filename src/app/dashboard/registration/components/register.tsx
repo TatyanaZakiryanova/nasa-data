@@ -5,6 +5,7 @@ import { doc, setDoc } from 'firebase/firestore';
 import { useFormik } from 'formik';
 import { UserPlus } from 'lucide-react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import * as Yup from 'yup';
 
@@ -12,7 +13,6 @@ import { auth, db } from '@/app/lib/firebase';
 import Button from '@/app/ui/button';
 import Input from '@/app/ui/input';
 import Modal from '@/app/ui/modal';
-import { useRouter } from 'next/navigation';
 
 export default function Register() {
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
