@@ -19,22 +19,22 @@ export default function Profile() {
   const router = useRouter();
 
   useEffect(() => {
-    if (!user) {
-      setIsLoading(false);
+    if (!user && !authLoading) {
+      router.push('/dashboard/login');
       return;
     }
 
     const fetchUserData = async () => {
+      setIsLoading(true);
+
       try {
-        const userDocRef = doc(db, 'users', user.uid);
+        const userDocRef = doc(db, 'users', user?.uid!);
         const userDoc = await getDoc(userDocRef);
 
         if (userDoc.exists()) {
-          const data = userDoc.data();
-          setUserData(data);
+          setUserData(userDoc.data());
         } else {
           openModal('User not found');
-          router.push('/dashboard/search');
         }
       } catch {
         openModal('Error loading user data');
@@ -43,8 +43,10 @@ export default function Profile() {
       }
     };
 
-    fetchUserData();
-  }, [user, router]);
+    if (user) {
+      fetchUserData();
+    }
+  }, [user, authLoading, router]);
 
   if (authLoading || isLoading) {
     return <Loader />;

@@ -43,9 +43,6 @@ export default function Login() {
         await updateDoc(userDocRef, {
           lastLogin: serverTimestamp(),
         });
-
-        console.log('User signed in and lastLogin updated');
-
         openModal(`Login successful! User: ${user.email}`);
         router.push('/dashboard/profile');
       } catch {
