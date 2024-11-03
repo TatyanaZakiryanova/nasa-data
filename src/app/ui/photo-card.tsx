@@ -8,7 +8,7 @@ interface PhotoCardProps {
   imageUrl?: string;
   date: string;
   copyright?: string;
-  onClick?: () => void;
+  onClick: () => void;
 }
 
 const PhotoCard: React.FC<PhotoCardProps> = React.memo(

@@ -136,7 +136,8 @@ export default function Search({ initialPhotos }: SearchProps) {
             date_created={
               'date_created' in selectedPhoto ? selectedPhoto.date_created : selectedPhoto.date
             }
-            center={'center' in selectedPhoto ? selectedPhoto.center : selectedPhoto.copyright}
+            center={'center' in selectedPhoto ? selectedPhoto.center : null}
+            copyright={'copyright' in selectedPhoto ? selectedPhoto.copyright : null}
           />
         </Modal>
       )}

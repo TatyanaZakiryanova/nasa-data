@@ -6,11 +6,12 @@ interface PhotoModalProps {
   imageSrc?: string;
   description: string;
   date_created: string;
-  center: string;
+  center: string | null;
+  copyright: string | null;
 }
 
 const PhotoModal: React.FC<PhotoModalProps> = React.memo(
-  ({ imageSrc, description, date_created, center }) => {
+  ({ imageSrc, description, date_created, center, copyright }) => {
     const [isImageLoaded, setIsImageLoaded] = useState<boolean>(false);
 
     return (
@@ -23,7 +24,8 @@ const PhotoModal: React.FC<PhotoModalProps> = React.memo(
           onLoad={() => setIsImageLoaded(true)}
         />
         <span className="mb-1 text-[10px]">{date_created}</span>
-        <span className="mb-1 text-[10px]">Center: {center || 'unknown'}</span>
+        <span className="mb-1 text-[10px]">{center ? `Center: ${center}` : null}</span>
+        <span className="mb-1 text-[10px]">{copyright}</span>
         <p>{description}</p>
       </>
     );
