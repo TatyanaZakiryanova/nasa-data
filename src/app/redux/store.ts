@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import photosReducer from './photos/photosSlice';
 import favoritesReducer from './favorites/favoritesSlice';
+import photosReducer from './photos/photosSlice';
 
 export const store = configureStore({
   reducer: {

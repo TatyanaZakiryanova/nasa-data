@@ -1,11 +1,13 @@
 'use client';
 
+import { Star } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
-import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { FavoritePhoto } from '../redux/favorites/types';
+
 import { addToFavorites, removeFromFavorites } from '../redux/favorites/favoritesSlice';
-import { Heart, Sparkles, Star } from 'lucide-react';
+import { FavoritePhoto } from '../redux/favorites/types';
+import { useAppDispatch, useAppSelector } from '../redux/hooks';
+import { useAuth } from '../contexts/auth-context';
 
 interface PhotoCardProps {
   id: string;
@@ -13,11 +15,12 @@ interface PhotoCardProps {
   imageUrl: string;
   date: string;
   copyright?: string;
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 const PhotoCard: React.FC<PhotoCardProps> = React.memo(
   ({ id, title, imageUrl, date, copyright, onClick }) => {
+    const { user } = useAuth();
     const dispatch = useAppDispatch();
     const favoritePhotos = useAppSelector((state) => state.favorites.items);
     const isFavorite = favoritePhotos.some((photo) => photo.id === id);
@@ -37,6 +40,15 @@ const PhotoCard: React.FC<PhotoCardProps> = React.memo(
       dispatch(removeFromFavorites(id));
     };
 
+    const handleToggleFavorite = (e: { stopPropagation: () => void }) => {
+      e.stopPropagation();
+      if (isFavorite) {
+        handleRemoveFromFavorites();
+      } else {
+        handleAddToFavorites();
+      }
+    };
+
     return (
       <div
         className="group relative m-2.5 w-[350px] cursor-pointer rounded-[5px] bg-customBackground p-[5px] text-center transition-shadow transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg"
@@ -52,23 +64,20 @@ const PhotoCard: React.FC<PhotoCardProps> = React.memo(
               style={{ borderRadius: '5px', objectFit: 'cover' }}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
-            <div
-              className={`absolute right-2 top-2 opacity-0 transition-opacity duration-500 group-hover:opacity-100 ${isFavorite ? 'opacity-100' : ''}`}
-            >
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  isFavorite ? handleRemoveFromFavorites() : handleAddToFavorites();
-                }}
+            {user && (
+              <div
+                className={`absolute right-2 top-2 opacity-0 transition-opacity duration-500 group-hover:opacity-100 ${isFavorite ? 'opacity-100' : ''}`}
               >
-                <Star
-                  size={25}
-                  color="white"
-                  strokeWidth={1.25}
-                  className="transition-all duration-500 hover:scale-125"
-                />
-              </button>
-            </div>
+                <button onClick={handleToggleFavorite}>
+                  <Star
+                    size={25}
+                    color="white"
+                    strokeWidth={1.25}
+                    className="transition-all duration-500 hover:scale-125"
+                  />
+                </button>
+              </div>
+            )}
           </div>
         )}
         {copyright && <span className="text-[10px]">{copyright}</span>}

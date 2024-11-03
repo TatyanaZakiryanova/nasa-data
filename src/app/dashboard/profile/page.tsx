@@ -1,7 +1,7 @@
 'use client';
 
 import { doc, DocumentData, getDoc } from 'firebase/firestore';
-import { CircleUser } from 'lucide-react';
+import { CircleUser, Film } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -11,6 +11,9 @@ import Loader from '@/app/ui/loader/loader';
 import Modal from '@/app/ui/modal';
 
 import { formatDate } from './utils';
+import PhotoCollection from './components/photo-collection';
+import { Provider } from 'react-redux';
+import { store } from '@/app/redux/store';
 
 export default function Profile() {
   const { user, loading: authLoading } = useAuth();
@@ -65,17 +68,23 @@ export default function Profile() {
     <div>
       <h1 className="mb-3 flex flex-col items-center text-2xl">
         Profile
-        <CircleUser size={60} />
+        <CircleUser size={60} strokeWidth={1} />
       </h1>
       {userData ? (
         <div className="flex flex-col gap-6">
-          <div className="flex flex-col gap-2">
+          <div className="mb-8 flex flex-col gap-2">
             <h2>{userData.email}</h2>
             <p className="text-xs">Created at: {formatDate(userData.createdAt)} UTC+3</p>
             <p className="text-xs">Last login: {formatDate(userData.lastLogin)} UTC+3</p>
             {userData.profilePicture && <img src={userData.profilePicture} alt="Profile" />}
           </div>
-          <h1 className="mb-3 text-xl">Photo collection</h1>
+          <p className="mb-2 flex items-center justify-center gap-1 text-xl">
+            <Film size={20} strokeWidth={1.5} />
+            Photo collection
+          </p>
+          <Provider store={store}>
+            <PhotoCollection />
+          </Provider>
         </div>
       ) : (
         <p>User data not found</p>
