@@ -15,11 +15,13 @@ interface PhotoCardProps {
   imageUrl: string;
   date: string;
   copyright?: string;
-  onClick?: () => void;
+  center?: string;
+  description: string;
+  onClick: () => void;
 }
 
 const PhotoCard: React.FC<PhotoCardProps> = React.memo(
-  ({ id, title, imageUrl, date, copyright, onClick }) => {
+  ({ id, title, imageUrl, date, copyright, center, description, onClick }) => {
     const { user } = useAuth();
     const dispatch = useAppDispatch();
     const favoritePhotos = useAppSelector((state) => state.favorites.items);
@@ -32,6 +34,8 @@ const PhotoCard: React.FC<PhotoCardProps> = React.memo(
         imageUrl: imageUrl,
         date: date,
         copyright: copyright || '',
+        center: center || '',
+        description: description,
       };
       dispatch(addToFavorites(favoritePhoto));
     };

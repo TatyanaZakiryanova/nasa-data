@@ -100,7 +100,9 @@ export default function Search({ initialPhotos }: SearchProps) {
                 id={photo.nasa_id}
                 title={photo.title}
                 imageUrl={photo.imageLink}
+                center={photo.center}
                 date={photo.date_created}
+                description={photo.description}
                 onClick={() => openModal(photo)}
               />
             ))
@@ -113,6 +115,7 @@ export default function Search({ initialPhotos }: SearchProps) {
                 imageUrl={initialPhoto.url}
                 copyright={initialPhoto.copyright}
                 date={initialPhoto.date}
+                description={initialPhoto.explanation}
                 onClick={() => openModal(initialPhoto)}
               />
             ))}
