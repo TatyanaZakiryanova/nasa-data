@@ -1,13 +1,15 @@
 'use client';
 
+import { deleteDoc, doc, setDoc } from 'firebase/firestore';
 import { Star } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
 
+import { useAuth } from '../contexts/auth-context';
+import { db } from '../lib/firebase';
 import { addToFavorites, removeFromFavorites } from '../redux/favorites/favoritesSlice';
 import { FavoritePhoto } from '../redux/favorites/types';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { useAuth } from '../contexts/auth-context';
 
 interface PhotoCardProps {
   id: string;
@@ -27,7 +29,7 @@ const PhotoCard: React.FC<PhotoCardProps> = React.memo(
     const favoritePhotos = useAppSelector((state) => state.favorites.items);
     const isFavorite = favoritePhotos.some((photo) => photo.id === id);
 
-    const handleAddToFavorites = () => {
+    const handleAddToFavorites = async () => {
       const favoritePhoto: FavoritePhoto = {
         id: id,
         title: title,
@@ -38,10 +40,19 @@ const PhotoCard: React.FC<PhotoCardProps> = React.memo(
         description: description,
       };
       dispatch(addToFavorites(favoritePhoto));
+
+      if (user) {
+        const docRef = doc(db, `users/${user.uid}/favorites`, id);
+        await setDoc(docRef, favoritePhoto);
+      }
     };
 
-    const handleRemoveFromFavorites = () => {
+    const handleRemoveFromFavorites = async () => {
       dispatch(removeFromFavorites(id));
+      if (user) {
+        const docRef = doc(db, `users/${user.uid}/favorites`, id);
+        await deleteDoc(docRef);
+      }
     };
 
     const handleToggleFavorite = (e: { stopPropagation: () => void }) => {

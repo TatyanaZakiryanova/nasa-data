@@ -4,16 +4,16 @@ import { doc, DocumentData, getDoc } from 'firebase/firestore';
 import { CircleUser, Film } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { Provider } from 'react-redux';
 
 import { useAuth } from '@/app/contexts/auth-context';
 import { db } from '@/app/lib/firebase';
+import { store } from '@/app/redux/store';
 import Loader from '@/app/ui/loader/loader';
 import Modal from '@/app/ui/modal';
 
-import { formatDate } from './utils';
 import PhotoCollection from './components/photo-collection';
-import { Provider } from 'react-redux';
-import { store } from '@/app/redux/store';
+import { formatDate } from './utils';
 
 export default function Profile() {
   const { user, loading: authLoading } = useAuth();
