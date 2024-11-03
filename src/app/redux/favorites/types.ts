@@ -1,11 +1,9 @@
 export interface FavoritePhoto {
+  id: string;
   title: string;
-  nasa_id: string;
-  description: string;
-  imageLink?: string;
-  fullImageLink?: string;
-  date_created: string;
-  center: string;
+  imageUrl: string;
+  copyright?: string;
+  date: string;
 }
 
 export interface FavoritesState {

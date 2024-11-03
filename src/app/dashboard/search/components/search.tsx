@@ -97,6 +97,7 @@ export default function Search({ initialPhotos }: SearchProps) {
           ? photos.map((photo) => (
               <PhotoCard
                 key={photo.nasa_id}
+                id={photo.nasa_id}
                 title={photo.title}
                 imageUrl={photo.imageLink}
                 date={photo.date_created}
@@ -107,6 +108,7 @@ export default function Search({ initialPhotos }: SearchProps) {
             initialStatePhotos.map((initialPhoto) => (
               <PhotoCard
                 key={`${initialPhoto.date}-${initialPhoto.url.split('/').pop()}`}
+                id={`${initialPhoto.date}-${initialPhoto.url.split('/').pop()}`}
                 title={initialPhoto.title}
                 imageUrl={initialPhoto.url}
                 copyright={initialPhoto.copyright}
