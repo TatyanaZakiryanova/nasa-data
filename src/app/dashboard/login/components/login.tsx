@@ -80,6 +80,7 @@ export default function Login() {
           handleInput={formik.handleChange}
           handleBlur={formik.handleBlur}
           className={`p-2 shadow-md`}
+          autoComplete="email"
         />
         {formik.touched.email && formik.errors.email ? (
           <span className="text-sm text-red-500">{formik.errors.email}</span>
@@ -93,6 +94,7 @@ export default function Login() {
           handleInput={formik.handleChange}
           handleBlur={formik.handleBlur}
           className={`p-2 shadow-md`}
+          autoComplete="current-password"
         />
         {formik.touched.password && formik.errors.password ? (
           <span className="text-sm text-red-500">{formik.errors.password}</span>

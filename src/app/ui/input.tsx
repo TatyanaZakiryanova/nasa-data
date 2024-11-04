@@ -16,6 +16,7 @@ interface InputProps {
   loading?: boolean;
   children?: React.ReactNode;
   className?: string;
+  autoComplete?: string;
 }
 
 const Input: React.FC<InputProps> = React.memo(
@@ -31,6 +32,7 @@ const Input: React.FC<InputProps> = React.memo(
     children,
     loading,
     className = '',
+    autoComplete,
   }) => {
     return (
       <>
@@ -44,6 +46,7 @@ const Input: React.FC<InputProps> = React.memo(
           onBlur={handleBlur}
           onKeyUp={searchKey}
           className={`rounded-lg border text-base text-black outline-none ${className}`}
+          autoComplete={autoComplete}
         />
         {children}
         {loading && <Loader />}
