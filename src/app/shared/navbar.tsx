@@ -3,9 +3,9 @@
 import { Camera, CircleUser, House, LogIn, LogOut, Search, UserPlus } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useState } from 'react';
 
 import { useAuth } from '../contexts/auth-context';
-import { useState } from 'react';
 
 export default function Navbar() {
   const pathname = usePathname();

@@ -22,10 +22,12 @@ export default function Register() {
 
   const formik = useFormik({
     initialValues: {
+      name: '',
       email: '',
       password: '',
     },
     validationSchema: Yup.object({
+      name: Yup.string().required('Name is required'),
       email: Yup.string().email('Invalid email format').required('Email is required'),
       password: Yup.string()
         .min(6, 'Password must be at least 6 characters')
@@ -33,7 +35,7 @@ export default function Register() {
     }),
     onSubmit: async (values) => {
       setIsLoading(true);
-      const { email, password } = values;
+      const { name, email, password } = values;
       try {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
@@ -41,6 +43,7 @@ export default function Register() {
         await setDoc(doc(db, 'users', user.uid), {
           uid: user.uid,
           email: user.email,
+          name: name,
           profilePicture: user.photoURL || null,
           createdAt: new Date(),
           lastLogin: new Date(),
@@ -74,6 +77,19 @@ export default function Register() {
           <UserPlus size={20} />
           Sign Up
         </p>
+        <Input
+          id="name"
+          name="name"
+          type="text"
+          placeholder="Name"
+          inputValue={formik.values.name}
+          handleInput={formik.handleChange}
+          handleBlur={formik.handleBlur}
+          className={`p-2 shadow-md`}
+        />
+        {formik.touched.name && formik.errors.name ? (
+          <span className="text-sm text-red-500">{formik.errors.name}</span>
+        ) : null}
         <Input
           id="email"
           name="email"
