@@ -14,7 +14,7 @@ import { useAppDispatch, useAppSelector } from '../redux/hooks';
 interface PhotoCardProps {
   id: string;
   title: string;
-  imageUrl: string;
+  imageUrl?: string;
   date: string;
   copyright?: string;
   center?: string;
@@ -33,7 +33,7 @@ const PhotoCard: React.FC<PhotoCardProps> = React.memo(
       const favoritePhoto: FavoritePhoto = {
         id: id,
         title: title,
-        imageUrl: imageUrl,
+        imageUrl: imageUrl || '',
         date: date,
         copyright: copyright || '',
         center: center || '',

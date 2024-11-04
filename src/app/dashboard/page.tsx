@@ -26,7 +26,7 @@ const getDataOfTheDay = unstable_cache(
     return data;
   },
   ['data-of-the-day'],
-  { revalidate: 10 }, //кэширование результата на сутки
+  { revalidate: 86400 }, //кэширование результата на сутки
 );
 
 export default async function DataOfTheDay() {
