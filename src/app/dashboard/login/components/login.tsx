@@ -63,7 +63,10 @@ export default function Login() {
 
   return (
     <>
-      <form onSubmit={formik.handleSubmit} className="flex flex-col gap-4 text-center">
+      <form
+        onSubmit={formik.handleSubmit}
+        className="flex w-full max-w-[300px] flex-col gap-4 text-center"
+      >
         <p className="flex items-center justify-center gap-2 text-xl">
           <LogIn size={20} />
           Sign In
@@ -76,7 +79,7 @@ export default function Login() {
           inputValue={formik.values.email}
           handleInput={formik.handleChange}
           handleBlur={formik.handleBlur}
-          className={`w-full p-2 shadow-md md:w-[300px]`}
+          className={`p-2 shadow-md`}
         />
         {formik.touched.email && formik.errors.email ? (
           <span className="text-sm text-red-500">{formik.errors.email}</span>
@@ -89,7 +92,7 @@ export default function Login() {
           inputValue={formik.values.password}
           handleInput={formik.handleChange}
           handleBlur={formik.handleBlur}
-          className={`w-full p-2 shadow-md md:w-[300px]`}
+          className={`p-2 shadow-md`}
         />
         {formik.touched.password && formik.errors.password ? (
           <span className="text-sm text-red-500">{formik.errors.password}</span>
