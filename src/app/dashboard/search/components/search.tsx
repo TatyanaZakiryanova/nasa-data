@@ -69,8 +69,8 @@ export default function Search({ initialPhotos }: SearchProps) {
     <>
       <div className="mb-5 flex flex-col justify-center md:flex-row">
         <Input
-          id="Search-input"
-          name="Search"
+          id="search"
+          name="search"
           inputValue={searchValue}
           handleInput={handleSearch}
           searchKey={searchKey}

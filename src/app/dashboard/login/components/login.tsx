@@ -69,7 +69,7 @@ export default function Login() {
           Sign In
         </p>
         <Input
-          id="email-input"
+          id="email"
           name="email"
           type="email"
           placeholder="Email"
@@ -82,7 +82,7 @@ export default function Login() {
           <span className="text-sm text-red-500">{formik.errors.email}</span>
         ) : null}
         <Input
-          id="password-input"
+          id="password"
           name="password"
           type="password"
           placeholder="Password"
