@@ -1,6 +1,6 @@
 'use client';
 
-import { doc, DocumentData, getDoc } from 'firebase/firestore';
+import { doc, getDoc } from 'firebase/firestore';
 import { CircleUser, Film } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -14,10 +14,12 @@ import Modal from '@/app/ui/modal';
 
 import PhotoCollection from './components/photo-collection';
 import { formatDate } from './utils';
+import ProfileEdit from './components/profile-edit';
+import { UserData } from './types';
 
 export default function Profile() {
   const { user, loading: authLoading } = useAuth();
-  const [userData, setUserData] = useState<DocumentData | null>(null);
+  const [userData, setUserData] = useState<UserData | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
   const [modalMessage, setModalMessage] = useState<string>('');
@@ -36,7 +38,7 @@ export default function Profile() {
         const userDoc = await getDoc(userDocRef);
 
         if (userDoc.exists()) {
-          setUserData(userDoc.data());
+          setUserData(userDoc.data() as UserData);
         } else {
           openModal('User not found');
         }
@@ -67,6 +69,7 @@ export default function Profile() {
   return (
     <div>
       <h1 className="mb-3 text-2xl">Profile</h1>
+      {user && userData && <ProfileEdit userData={userData} />}
       {userData ? (
         <div>
           <div className="mb-8 flex flex-col items-center gap-2">
