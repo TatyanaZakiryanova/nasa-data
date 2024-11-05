@@ -45,7 +45,7 @@ export default function Profile() {
           openModal('User not found');
         }
       } catch {
-        openModal('Error loading user data');
+        console.error('Error loading user data');
       } finally {
         setIsLoading(false);
       }
