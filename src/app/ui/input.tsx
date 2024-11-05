@@ -9,13 +9,14 @@ interface InputProps {
   name: string;
   type?: string;
   placeholder?: string;
-  inputValue: string;
+  inputValue?: string;
   handleInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
   searchKey?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   loading?: boolean;
   children?: React.ReactNode;
   className?: string;
+  required?: boolean;
   autoComplete?: string;
 }
 
@@ -32,6 +33,7 @@ const Input: React.FC<InputProps> = React.memo(
     children,
     loading,
     className = '',
+    required,
     autoComplete,
   }) => {
     return (
@@ -46,6 +48,7 @@ const Input: React.FC<InputProps> = React.memo(
           onBlur={handleBlur}
           onKeyUp={searchKey}
           className={`rounded-lg border text-base text-black outline-none ${className}`}
+          required={required}
           autoComplete={autoComplete}
         />
         {children}

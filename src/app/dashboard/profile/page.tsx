@@ -1,7 +1,7 @@
 'use client';
 
 import { doc, getDoc } from 'firebase/firestore';
-import { CircleUser, Film } from 'lucide-react';
+import { CircleUser, Film, UserRoundPen } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
@@ -14,14 +14,16 @@ import Modal from '@/app/ui/modal';
 
 import PhotoCollection from './components/photo-collection';
 import { formatDate } from './utils';
-import ProfileEdit from './components/profile-edit';
 import { UserData } from './types';
+import EditProfile from './components/edit-profile';
+import Button from '@/app/ui/button';
 
 export default function Profile() {
   const { user, loading: authLoading } = useAuth();
   const [userData, setUserData] = useState<UserData | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+  const [editModalIsOpen, setEditModalIsOpen] = useState<boolean>(false);
   const [modalMessage, setModalMessage] = useState<string>('');
   const router = useRouter();
 
@@ -68,12 +70,16 @@ export default function Profile() {
 
   return (
     <div>
-      <h1 className="mb-3 text-2xl">Profile</h1>
-      {user && userData && <ProfileEdit userData={userData} />}
+      <div className="mb-3 flex items-center justify-center gap-2">
+        <h1 className="text-2xl">Profile</h1>
+        <Button onClick={() => setEditModalIsOpen(true)} className="px-3 py-1 text-sm">
+          <UserRoundPen size={18} />
+        </Button>
+      </div>
       {userData ? (
         <div>
           <div className="mb-8 flex flex-col items-center gap-2">
-            <CircleUser size={60} strokeWidth={1} />
+            <CircleUser strokeWidth={1} size={60} />
             <h1 className="text-xl font-bold">{userData.name}</h1>
             <h2 className="mb-3 text-sm">{userData.email}</h2>
             <p className="text-xs">Created at: {formatDate(userData.createdAt)} UTC+3</p>
@@ -94,6 +100,15 @@ export default function Profile() {
       <Modal isOpen={modalIsOpen} onClose={() => setModalIsOpen(false)}>
         <p>{modalMessage}</p>
       </Modal>
+      {user && userData && (
+        <Modal isOpen={editModalIsOpen} onClose={() => setEditModalIsOpen(false)}>
+          <EditProfile
+            userData={userData}
+            setUserData={setUserData}
+            onClose={() => setEditModalIsOpen(false)}
+          />
+        </Modal>
+      )}
     </div>
   );
 }
