@@ -1,6 +1,6 @@
 'use client';
 
-import { CircleUser, LogIn, LogOut, UserPlus } from 'lucide-react';
+import { CircleUser, LogIn, LogOut, Telescope, UserPlus } from 'lucide-react';
 import Link from 'next/link';
 
 import { useAuth } from './contexts/auth-context';
@@ -49,9 +49,9 @@ export default function Home() {
       </span>
       <Link
         href="/dashboard"
-        className="text-md md:text-l mt-36 flex w-56 cursor-pointer items-center justify-center gap-1 rounded-lg border-none bg-customButton px-5 py-4 text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:bg-customButtonHover sm:w-64 sm:px-7 sm:py-5"
+        className="text-md md:text-l mt-20 flex w-56 cursor-pointer items-center justify-center gap-1 rounded-lg border-none bg-customButton px-5 py-4 text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:bg-customButtonHover sm:w-64 sm:px-7 sm:py-5"
       >
-        Discover the universe
+        <Telescope strokeWidth={1} color="white" size={28} /> Discover the universe
       </Link>
     </main>
   );
