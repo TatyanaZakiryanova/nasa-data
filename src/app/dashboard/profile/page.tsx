@@ -71,7 +71,7 @@ export default function Profile() {
         <div>
           <div className="mb-8 flex flex-col items-center gap-2">
             <CircleUser size={60} strokeWidth={1} />
-            <h1 className="text-xl">{userData.name}</h1>
+            <h1 className="text-xl font-bold">{userData.name}</h1>
             <h2 className="mb-3 text-sm">{userData.email}</h2>
             <p className="text-xs">Created at: {formatDate(userData.createdAt)} UTC+3</p>
             <p className="text-xs">Last login: {formatDate(userData.lastLogin)} UTC+3</p>

@@ -49,7 +49,7 @@ export default function Navbar() {
               }`}
             >
               <Search size={20} />
-              Search
+              Photo search
             </Link>
           </li>
         </ul>
