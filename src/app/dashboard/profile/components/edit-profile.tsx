@@ -1,9 +1,11 @@
-import { ChangeEvent, Dispatch, useState } from 'react';
-import { UserData } from '../types';
-import { db } from '@/app/lib/firebase';
 import { doc, updateDoc } from 'firebase/firestore';
-import Input from '@/app/ui/input';
+import { ChangeEvent, Dispatch, useState } from 'react';
+
+import { db } from '@/app/lib/firebase';
 import Button from '@/app/ui/button';
+import Input from '@/app/ui/input';
+
+import { UserData } from '../types';
 
 interface ProfileEditProps {
   userData: UserData;

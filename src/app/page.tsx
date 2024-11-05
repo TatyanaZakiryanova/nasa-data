@@ -1,10 +1,47 @@
-import { Orbit, Telescope } from 'lucide-react';
+'use client';
+
+import { CircleUser, LogIn, LogOut, UserPlus } from 'lucide-react';
 import Link from 'next/link';
 
+import { useAuth } from './contexts/auth-context';
+import Button from './ui/button';
+
 export default function Home() {
+  const { user, logout } = useAuth();
+  const buttonClasses = 'flex items-center justify-center p-4 text-xs';
+  const linkClasses = 'inline-flex justify-center gap-1';
+
   return (
     <main className="relative flex h-screen flex-col items-center bg-customBackground p-12">
-      <h1 className="gradient-text m-5 text-5xl font-bold tracking-wide sm:text-6xl md:text-7xl lg:text-8xl">
+      <aside className="absolute bottom-8 right-2 top-2 flex max-h-5 gap-2 text-sm text-customTextColor">
+        {user ? (
+          <>
+            <Button className={`${buttonClasses}`}>
+              <Link href="/dashboard/profile" className={`${linkClasses}`}>
+                <CircleUser size={15} /> Profile
+              </Link>
+            </Button>
+            <Button className={`${buttonClasses}`} onClick={logout}>
+              <LogOut size={15} />
+              Sign Out
+            </Button>
+          </>
+        ) : (
+          <>
+            <Button className={`${buttonClasses}`}>
+              <Link href="/dashboard/registration" className={`${linkClasses}`}>
+                <UserPlus size={15} /> Sign Up
+              </Link>
+            </Button>
+            <Button className={`${buttonClasses}`}>
+              <Link href="/dashboard/login" className={`${linkClasses}`}>
+                <LogIn size={15} /> Sign In
+              </Link>
+            </Button>
+          </>
+        )}
+      </aside>
+      <h1 className="gradient-text m-5 mt-16 text-5xl font-bold tracking-wide sm:text-6xl md:text-7xl lg:text-8xl">
         NASA Data
       </h1>
       <span className="text-sm text-white sm:text-base md:text-lg">

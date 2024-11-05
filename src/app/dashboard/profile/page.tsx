@@ -9,14 +9,14 @@ import { Provider } from 'react-redux';
 import { useAuth } from '@/app/contexts/auth-context';
 import { db } from '@/app/lib/firebase';
 import { store } from '@/app/redux/store';
+import Button from '@/app/ui/button';
 import Loader from '@/app/ui/loader/loader';
 import Modal from '@/app/ui/modal';
 
-import PhotoCollection from './components/photo-collection';
-import { formatDate } from './utils';
-import { UserData } from './types';
 import EditProfile from './components/edit-profile';
-import Button from '@/app/ui/button';
+import PhotoCollection from './components/photo-collection';
+import { UserData } from './types';
+import { formatDate } from './utils';
 
 export default function Profile() {
   const { user, loading: authLoading } = useAuth();

@@ -3,6 +3,8 @@ import './globals.css';
 import type { Metadata, Viewport } from 'next';
 import { Roboto } from 'next/font/google';
 
+import { AuthProvider } from './contexts/auth-context';
+
 export const metadata: Metadata = {
   title: 'NASA Data',
 };
@@ -24,7 +26,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={roboto.className}>{children}</body>
+      <AuthProvider>
+        <body className={roboto.className}>{children}</body>
+      </AuthProvider>
     </html>
   );
 }
