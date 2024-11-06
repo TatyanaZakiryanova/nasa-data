@@ -6,8 +6,7 @@
 
 [Deploy](https://datanasa.netlify.app/)
 
-<img src="./public/preview1.png" alt="preview1" />
-<img src="./public/preview2.png" alt="preview2" />
+<img src="./public/preview.gif" alt="preview" />
 
 ## Technologies Used
 
