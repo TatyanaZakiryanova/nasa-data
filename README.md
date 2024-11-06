@@ -4,7 +4,9 @@
 
 ## Deployment & Live Demo
 
-[Deploy]
+[Deploy](https://datanasa.netlify.app/)
+
+![Demo GIF](.public/preview.gif)
 
 ## Technologies Used
 
