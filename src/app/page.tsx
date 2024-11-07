@@ -41,10 +41,10 @@ export default function Home() {
           </>
         )}
       </aside>
-      <h1 className="gradient-text m-5 mt-16 text-5xl font-bold tracking-wide sm:text-6xl md:text-7xl lg:text-8xl">
+      <h1 className="gradient-text m-5 mt-16 text-4xl font-bold tracking-wide sm:text-6xl md:text-6xl lg:text-7xl">
         NASA Data
       </h1>
-      <span className="text-sm text-white sm:text-base md:text-lg">
+      <span className="text-sm text-white sm:text-xs md:text-base">
         collection of NASA photos and knowledge
       </span>
       <Link
