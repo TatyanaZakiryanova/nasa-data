@@ -88,8 +88,7 @@
 
 - next/image для изображений
 - next/font для шрифтов
-- next/cache для кэширования результата запроса
-- ISR для загрузки страницы "фото дня"
+- revalidate для кэширования результата запроса
 
 ### Styling and Responsiveness
 

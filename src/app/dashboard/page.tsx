@@ -1,4 +1,3 @@
-import { unstable_cache } from 'next/cache';
 import Image from 'next/image';
 
 interface NASAData {
@@ -13,21 +12,17 @@ interface NASAData {
 const API_KEY = process.env.NASA_API_KEY;
 const API_URL = `https://api.nasa.gov/planetary/apod?api_key=${API_KEY}`;
 
-const getDataOfTheDay = unstable_cache(
-  async (): Promise<NASAData> => {
-    const response = await fetch(API_URL);
+const getDataOfTheDay = async (): Promise<NASAData> => {
+  const response = await fetch(API_URL, {
+    next: { revalidate: 86400 },
+  });
 
-    if (!response.ok) {
-      throw new Error('Failed to fetch data');
-    }
+  if (!response.ok) {
+    throw new Error('Failed to fetch data');
+  }
 
-    const data: NASAData = await response.json();
-
-    return data;
-  },
-  ['data-of-the-day'],
-  { revalidate: 86400 }, //кэширование результата на сутки
-);
+  return response.json();
+};
 
 export default async function DataOfTheDay() {
   const data = await getDataOfTheDay();
