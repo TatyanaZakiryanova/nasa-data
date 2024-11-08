@@ -86,7 +86,7 @@ export default function Profile() {
             <p className="text-xs">Last login: {formatDate(userData.lastLogin)} UTC+3</p>
             {userData.profilePicture && <img src={userData.profilePicture} alt="Profile" />}
           </div>
-          <p className="mb-8 flex items-center justify-center gap-1 text-xl">
+          <p className="mb-5 flex items-center justify-center gap-1 text-xl">
             <Film size={20} strokeWidth={1.5} />
             Photo collection
           </p>

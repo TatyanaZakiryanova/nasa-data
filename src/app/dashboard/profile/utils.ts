@@ -1,5 +1,7 @@
 import { Timestamp } from 'firebase/firestore';
 
+import { FavoritePhoto } from '@/app/redux/favorites/types';
+
 export const formatDate = (timestamp: Timestamp) => {
   const date = timestamp.toDate();
   return date.toLocaleString('en-US', {
@@ -12,4 +14,16 @@ export const formatDate = (timestamp: Timestamp) => {
     second: '2-digit',
     hour12: true,
   });
+};
+
+export const sortFavorites = (
+  favorites: FavoritePhoto[],
+  order: 'default' | 'newest' | 'oldest',
+) => {
+  if (order === 'newest') {
+    return [...favorites].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  } else if (order === 'oldest') {
+    return [...favorites].sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+  }
+  return favorites;
 };

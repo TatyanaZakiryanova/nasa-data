@@ -9,3 +9,9 @@ export interface UserData {
   lastLogin: Timestamp;
   roles: string[];
 }
+
+export enum SortOrder {
+  DEFAULT = 'default',
+  NEWEST = 'newest',
+  OLDEST = 'oldest',
+}

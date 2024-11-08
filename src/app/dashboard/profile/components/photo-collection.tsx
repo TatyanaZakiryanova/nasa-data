@@ -9,9 +9,13 @@ import { db } from '@/app/lib/firebase';
 import { setFavorites } from '@/app/redux/favorites/favoritesSlice';
 import { FavoritePhoto } from '@/app/redux/favorites/types';
 import { useAppDispatch, useAppSelector } from '@/app/redux/hooks';
+import { Dropdown } from '@/app/ui/dropdown';
 import Modal from '@/app/ui/modal';
 import PhotoCard from '@/app/ui/photo-card';
 import PhotoModal from '@/app/ui/photo-modal';
+
+import { SortOrder } from '../types';
+import { sortFavorites } from '../utils';
 
 export default function PhotoCollection() {
   const { user } = useAuth();
@@ -19,6 +23,7 @@ export default function PhotoCollection() {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
   const favoritesPhotos = useAppSelector((state) => state.favorites.items);
+  const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.DEFAULT);
   const dispatch = useAppDispatch();
 
   const fetchFavorites = async () => {
@@ -49,6 +54,8 @@ export default function PhotoCollection() {
     }
   }, [user]);
 
+  const sortedFavorites = sortFavorites(favoritesPhotos, sortOrder);
+
   const openModal = (photo: FavoritePhoto) => {
     setIsModalOpen(true);
     setSelectedPhoto(photo);
@@ -61,28 +68,38 @@ export default function PhotoCollection() {
 
   return (
     <>
-      <div className="flex flex-wrap justify-center">
-        {loading ? (
-          <div className="flex flex-col items-center">
-            <Loader className="animate-spin p-2" size={40} />
-            <p className="text-sm">Photos are loading...</p>
+      {loading ? (
+        <div className="flex flex-col items-center">
+          <Loader className="animate-spin p-2" size={40} />
+          <p className="text-sm">Photos are loading...</p>
+        </div>
+      ) : sortedFavorites.length > 0 ? (
+        <>
+          <Dropdown
+            options={[SortOrder.DEFAULT, SortOrder.NEWEST, SortOrder.OLDEST]}
+            currentOption={sortOrder}
+            handleOption={(selectedOption) => setSortOrder(selectedOption)}
+          />
+          <div
+            className="flex flex-wrap justify-center rounded-lg py-2"
+            style={{ boxShadow: '0px 4px 15px rgba(0, 0, 0, 0.3)' }}
+          >
+            {sortedFavorites.map((photo) => (
+              <PhotoCard
+                key={photo.id}
+                id={photo.id}
+                title={photo.title}
+                imageUrl={photo.imageUrl}
+                date={photo.date}
+                description={photo.description}
+                onClick={() => openModal(photo)}
+              />
+            ))}
           </div>
-        ) : favoritesPhotos.length > 0 ? (
-          favoritesPhotos.map((photo) => (
-            <PhotoCard
-              key={photo.id}
-              id={photo.id}
-              title={photo.title}
-              imageUrl={photo.imageUrl}
-              date={photo.date}
-              description={photo.description}
-              onClick={() => openModal(photo)}
-            />
-          ))
-        ) : (
-          <p className="text-sm">There are no photos in your collection yet.</p>
-        )}
-      </div>
+        </>
+      ) : (
+        <p className="text-sm">There are no photos in your collection yet.</p>
+      )}
       {selectedPhoto && (
         <Modal isOpen={isModalOpen} onClose={closeModal} title={selectedPhoto.title}>
           <PhotoModal
