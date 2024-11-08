@@ -66,7 +66,7 @@ const PhotoCard: React.FC<PhotoCardProps> = React.memo(
 
     return (
       <div
-        className="group relative m-2.5 w-[350px] cursor-pointer rounded-[5px] bg-customBackground p-[5px] text-center transition-shadow transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg"
+        className="group relative z-10 m-2.5 w-[350px] cursor-pointer rounded-[5px] bg-customBackground p-[5px] text-center transition-shadow transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg"
         onClick={onClick}
       >
         <h3 className="mb-1 text-xs">{title}</h3>

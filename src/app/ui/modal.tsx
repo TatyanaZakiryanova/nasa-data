@@ -15,7 +15,10 @@ const Modal: React.FC<ModalProps> = React.memo(({ isOpen, onClose, title, childr
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/70" onClick={onClose}>
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
+      onClick={onClose}
+    >
       <div
         className="relative flex max-h-[80vh] min-h-[20vh] min-w-[20%] max-w-[90%] animate-fadeIn flex-col justify-center rounded-lg bg-customBackground p-2.5 pt-8 text-center text-gray-300"
         onClick={(e) => e.stopPropagation()}
