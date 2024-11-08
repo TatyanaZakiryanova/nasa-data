@@ -45,8 +45,13 @@ export default async function DataOfTheDay() {
             ></iframe>
           </div>
         ) : (
-          <div className="relative h-[90vh] w-full">
-            <Image src={data.url} alt={data.title} fill style={{ objectFit: 'cover' }} />
+          <div className="relative w-full" style={{ aspectRatio: '16/9' }}>
+            <Image
+              src={data.url}
+              alt={data.title}
+              fill
+              style={{ objectFit: 'contain', objectPosition: 'top' }}
+            />
           </div>
         )}
         <p>{data.explanation}</p>
