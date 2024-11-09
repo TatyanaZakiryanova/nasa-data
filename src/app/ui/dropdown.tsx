@@ -36,7 +36,7 @@ export const Dropdown = ({ options, currentOption, handleOption }: DropdownProps
   return (
     <div
       ref={dropdownRef}
-      className="relative z-20 mb-5 flex w-20 cursor-pointer justify-self-end rounded-lg bg-customBackground p-2 text-sm shadow-lg"
+      className="relative z-20 mb-5 flex w-20 cursor-pointer rounded-lg bg-customBackground p-2 text-sm shadow-lg"
     >
       <h2 className="flex items-center justify-center">
         <ChevronDown size={13} />
