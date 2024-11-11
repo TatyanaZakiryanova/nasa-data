@@ -1,15 +1,12 @@
 'use client';
 
-import { deleteDoc, doc, setDoc } from 'firebase/firestore';
 import { Star } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
 
 import { useAuth } from '../contexts/auth-context';
-import { db } from '../lib/firebase';
-import { addToFavorites, removeFromFavorites } from '../redux/favorites/favoritesSlice';
+import useFavorites from '../hooks/use-favorites';
 import { FavoritePhoto } from '../redux/favorites/types';
-import { useAppDispatch, useAppSelector } from '../redux/hooks';
 
 interface PhotoCardProps {
   id: string;
@@ -25,44 +22,17 @@ interface PhotoCardProps {
 const PhotoCard: React.FC<PhotoCardProps> = React.memo(
   ({ id, title, imageUrl, date, copyright, center, description, onClick }) => {
     const { user } = useAuth();
-    const dispatch = useAppDispatch();
-    const favoritePhotos = useAppSelector((state) => state.favorites.items);
-    const isFavorite = favoritePhotos.some((photo) => photo.id === id);
-
-    const handleAddToFavorites = async () => {
-      const favoritePhoto: FavoritePhoto = {
-        id: id,
-        title: title,
-        imageUrl: imageUrl || '',
-        date: date,
-        copyright: copyright || '',
-        center: center || '',
-        description: description,
-      };
-      dispatch(addToFavorites(favoritePhoto));
-
-      if (user) {
-        const docRef = doc(db, `users/${user.uid}/favorites`, id);
-        await setDoc(docRef, favoritePhoto);
-      }
+    const photo: FavoritePhoto = {
+      id,
+      title,
+      imageUrl: imageUrl || '',
+      date,
+      copyright: copyright || '',
+      center: center || '',
+      description,
     };
 
-    const handleRemoveFromFavorites = async () => {
-      dispatch(removeFromFavorites(id));
-      if (user) {
-        const docRef = doc(db, `users/${user.uid}/favorites`, id);
-        await deleteDoc(docRef);
-      }
-    };
-
-    const handleToggleFavorite = (e: { stopPropagation: () => void }) => {
-      e.stopPropagation();
-      if (isFavorite) {
-        handleRemoveFromFavorites();
-      } else {
-        handleAddToFavorites();
-      }
-    };
+    const { isFavorite, handleToggleFavorite } = useFavorites({ photo });
 
     return (
       <div
