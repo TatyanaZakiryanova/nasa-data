@@ -98,7 +98,7 @@ export default function PhotoCollection() {
           </div>
         </>
       ) : (
-        <p className="text-sm">There are no photos in your collection yet.</p>
+        <p className="p-2 text-sm">There are no photos in your collection yet.</p>
       )}
       {selectedPhoto && (
         <Modal isOpen={isModalOpen} onClose={closeModal} title={selectedPhoto.title}>

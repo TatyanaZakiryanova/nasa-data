@@ -68,11 +68,19 @@ export default function Profile() {
     }, 2000);
   };
 
+  const handleOpenEditModal = () => {
+    if (user && user.emailVerified) {
+      setEditModalIsOpen(true);
+    } else {
+      openModal('Please confirm your email address to edit your profile');
+    }
+  };
+
   return (
     <div>
       <div className="mb-3 flex items-center justify-center gap-2">
         <h1 className="text-2xl">Profile</h1>
-        <Button onClick={() => setEditModalIsOpen(true)} className="px-3 py-1 text-sm">
+        <Button onClick={handleOpenEditModal} className="px-3 py-1 text-sm">
           <UserRoundPen size={18} />
         </Button>
       </div>

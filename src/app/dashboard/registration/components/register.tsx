@@ -1,6 +1,6 @@
 'use client';
 
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { useFormik } from 'formik';
 import { UserPlus } from 'lucide-react';
@@ -40,6 +40,8 @@ export default function Register() {
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
 
+        await sendEmailVerification(user);
+
         await setDoc(doc(db, 'users', user.uid), {
           uid: user.uid,
           email: user.email,
@@ -49,7 +51,9 @@ export default function Register() {
           lastLogin: new Date(),
           roles: ['user'],
         });
-        openModal('Registration successful!');
+        openModalRegister(
+          'Registration successful! Please confirm your email before accessing full features',
+        );
         router.replace('/dashboard/profile');
       } catch {
         openModal('Error registering user');
@@ -65,6 +69,11 @@ export default function Register() {
     setTimeout(() => {
       setModalIsOpen(false);
     }, 2000);
+  };
+
+  const openModalRegister = (message: string) => {
+    setModalMessage(message);
+    setModalIsOpen(true);
   };
 
   return (
