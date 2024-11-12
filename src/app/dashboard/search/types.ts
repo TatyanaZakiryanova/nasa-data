@@ -1,4 +1,5 @@
 export interface InitialPhoto {
+  id: string;
   title: string;
   url: string;
   copyright: string;

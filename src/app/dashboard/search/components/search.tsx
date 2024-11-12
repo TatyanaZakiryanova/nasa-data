@@ -13,6 +13,7 @@ import PhotoCard from '@/app/ui/photo-card';
 import PhotoModal from '@/app/ui/photo-modal';
 
 import { InitialPhoto, Photo } from '../types';
+import { getPhotoDetails } from '../utils';
 import StatusMessage from './status-message';
 
 interface SearchProps {
@@ -129,21 +130,7 @@ export default function Search({ initialPhotos }: SearchProps) {
       )}
       {selectedPhoto && (
         <Modal isOpen={isModalOpen} onClose={closeModal} title={selectedPhoto.title}>
-          <PhotoModal
-            imageSrc={
-              'url' in selectedPhoto
-                ? selectedPhoto.url
-                : selectedPhoto.fullImageLink || selectedPhoto.imageLink
-            }
-            description={
-              'description' in selectedPhoto ? selectedPhoto.description : selectedPhoto.explanation
-            }
-            date_created={
-              'date_created' in selectedPhoto ? selectedPhoto.date_created : selectedPhoto.date
-            }
-            center={'center' in selectedPhoto ? selectedPhoto.center : null}
-            copyright={'copyright' in selectedPhoto ? selectedPhoto.copyright : null}
-          />
+          <PhotoModal {...getPhotoDetails(selectedPhoto)} />
         </Modal>
       )}
     </>
