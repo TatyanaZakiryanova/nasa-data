@@ -75,6 +75,7 @@ export default function PhotoCollection() {
         </div>
       ) : sortedFavorites.length > 0 ? (
         <>
+          <p className="text-xs">{sortedFavorites.length} photos</p>
           <Dropdown
             options={[SortOrder.DEFAULT, SortOrder.NEWEST, SortOrder.OLDEST]}
             currentOption={sortOrder}
