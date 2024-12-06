@@ -1,6 +1,6 @@
 'use client';
 
-import { CircleUser, LogIn, LogOut, Orbit, Telescope, UserPlus } from 'lucide-react';
+import { CircleUser, LogIn, LogOut, Orbit, UserPlus } from 'lucide-react';
 import Link from 'next/link';
 
 import { useAuth } from './contexts/auth-context';
