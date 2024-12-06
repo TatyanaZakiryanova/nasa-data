@@ -1,6 +1,6 @@
 'use client';
 
-import { CircleUser, LogIn, LogOut, Telescope, UserPlus } from 'lucide-react';
+import { CircleUser, LogIn, LogOut, Orbit, Telescope, UserPlus } from 'lucide-react';
 import Link from 'next/link';
 
 import { useAuth } from './contexts/auth-context';
@@ -41,17 +41,23 @@ export default function Home() {
           </>
         )}
       </aside>
-      <h1 className="gradient-text m-5 mt-16 text-4xl font-bold tracking-wide sm:text-6xl md:text-6xl lg:text-7xl">
+      <h1 className="gradient-text mt-16 text-4xl font-bold tracking-wide sm:text-6xl md:text-6xl lg:text-7xl">
         NASA Data
       </h1>
-      <span className="text-sm text-white sm:text-xs md:text-base">
+      <span className="text-sm text-white sm:text-xs md:text-sm">
         collection of NASA photos and knowledge
       </span>
+      <Orbit
+        size={80}
+        strokeWidth={1.5}
+        color="rgb(104, 65, 151)"
+        className="my-8 hover:animate-spin"
+      />
       <Link
         href="/dashboard"
-        className="text-md md:text-l mt-20 flex w-56 cursor-pointer items-center justify-center gap-1 rounded-lg border-none bg-customButton px-5 py-4 text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:bg-customButtonHover sm:w-64 sm:px-7 sm:py-5"
+        className="text-md md:text-l flex w-56 cursor-pointer items-center justify-center gap-1 rounded-lg border-none bg-customButton px-5 py-4 text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:bg-customButtonHover sm:w-64 sm:px-7 sm:py-5"
       >
-        <Telescope strokeWidth={1} color="white" size={28} /> Discover the universe
+        Discover the universe
       </Link>
     </main>
   );

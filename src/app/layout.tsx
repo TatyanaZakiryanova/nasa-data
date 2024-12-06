@@ -7,6 +7,9 @@ import { AuthProvider } from './contexts/auth-context';
 
 export const metadata: Metadata = {
   title: 'NASA Data',
+  icons: {
+    icon: '/favicon.png',
+  },
 };
 
 export const viewport: Viewport = {
