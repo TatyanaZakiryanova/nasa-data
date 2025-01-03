@@ -36,10 +36,10 @@ const PhotoCard: React.FC<PhotoCardProps> = React.memo(
 
     return (
       <div className="group relative z-10 m-2.5 w-[350px] cursor-pointer rounded-[5px] bg-customBackground p-[5px] text-center transition-shadow transition-transform duration-300 ease-in-out hover:scale-105 hover:shadow-lg">
-        <h3 className="my-[2px] text-xs">{title}</h3>
+        <h3 className="p-1 text-xs">{title}</h3>
         {user && (
           <div
-            className={`absolute right-1 top-1 opacity-0 transition-opacity duration-500 group-hover:opacity-100 ${isFavorite ? 'opacity-100' : ''}`}
+            className={`absolute right-[6px] top-[6px] opacity-0 transition-opacity duration-500 group-hover:opacity-100 ${isFavorite ? 'opacity-100' : ''}`}
           >
             <button onClick={handleToggleFavorite}>
               <Star
