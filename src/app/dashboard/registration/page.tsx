@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Register from './components/register';
+import Registration from './components/registration';
 
 export default function RegistrationPage() {
-  return <Register />;
+  return <Registration />;
 }
