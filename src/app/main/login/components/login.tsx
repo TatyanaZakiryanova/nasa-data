@@ -1,9 +1,9 @@
 'use client';
 
-import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
-import { doc, setDoc } from 'firebase/firestore';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { doc, serverTimestamp, updateDoc } from 'firebase/firestore';
 import { useFormik } from 'formik';
-import { UserPlus } from 'lucide-react';
+import { LogIn } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -14,7 +14,7 @@ import Button from '@/app/ui/button';
 import Input from '@/app/ui/input';
 import Modal from '@/app/ui/modal';
 
-export default function Register() {
+export default function Login() {
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
   const [modalMessage, setModalMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -22,12 +22,10 @@ export default function Register() {
 
   const formik = useFormik({
     initialValues: {
-      name: '',
       email: '',
       password: '',
     },
     validationSchema: Yup.object({
-      name: Yup.string().required('Name is required'),
       email: Yup.string().email('Invalid email format').required('Email is required'),
       password: Yup.string()
         .min(6, 'Password must be at least 6 characters')
@@ -35,28 +33,20 @@ export default function Register() {
     }),
     onSubmit: async (values) => {
       setIsLoading(true);
-      const { name, email, password } = values;
+      const { email, password } = values;
+
       try {
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
+        const userDocRef = doc(db, 'users', user.uid);
 
-        await sendEmailVerification(user);
-
-        await setDoc(doc(db, 'users', user.uid), {
-          uid: user.uid,
-          email: user.email,
-          name: name,
-          profilePicture: user.photoURL || null,
-          createdAt: new Date(),
-          lastLogin: new Date(),
-          roles: ['user'],
+        await updateDoc(userDocRef, {
+          lastLogin: serverTimestamp(),
         });
-        openModalRegister(
-          'Registration successful! Please confirm your email before accessing full features',
-        );
-        router.replace('/dashboard/profile');
+        openModal(`Login successful! User: ${user.email}`);
+        router.replace('/main/profile');
       } catch {
-        openModal('Error registering user');
+        openModal('Error logging in');
       } finally {
         setIsLoading(false);
       }
@@ -71,11 +61,6 @@ export default function Register() {
     }, 2000);
   };
 
-  const openModalRegister = (message: string) => {
-    setModalMessage(message);
-    setModalIsOpen(true);
-  };
-
   return (
     <>
       <form
@@ -83,22 +68,9 @@ export default function Register() {
         className="flex w-full max-w-[300px] flex-col gap-4 text-center"
       >
         <p className="flex items-center justify-center gap-2 text-xl">
-          <UserPlus size={20} />
-          Sign Up
+          <LogIn size={20} />
+          Sign In
         </p>
-        <Input
-          id="name"
-          name="name"
-          type="text"
-          placeholder="Name"
-          inputValue={formik.values.name}
-          handleInput={formik.handleChange}
-          handleBlur={formik.handleBlur}
-          className={`p-2 shadow-md`}
-        />
-        {formik.touched.name && formik.errors.name ? (
-          <span className="text-sm text-red-500">{formik.errors.name}</span>
-        ) : null}
         <Input
           id="email"
           name="email"
@@ -132,12 +104,12 @@ export default function Register() {
           className="px-5 py-2"
           disabled={!formik.isValid || !formik.dirty || isLoading}
         >
-          {isLoading ? 'In progress...' : 'Sign up'}
+          {isLoading ? 'In progress...' : 'Sign in'}
         </Button>
         <p className="text-xs">
-          Already registered?{' '}
-          <Link href="/dashboard/login" className="text-purple-600 hover:underline">
-            Sign in
+          Not registered yet?{' '}
+          <Link href="/main/registration" className="text-purple-600 hover:underline">
+            Sign up
           </Link>
         </p>
         <Modal isOpen={modalIsOpen} onClose={() => setModalIsOpen(false)}>

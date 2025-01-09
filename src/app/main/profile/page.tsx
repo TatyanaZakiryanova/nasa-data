@@ -29,7 +29,7 @@ export default function Profile() {
 
   useEffect(() => {
     if (!user && !authLoading) {
-      router.replace('/dashboard/login');
+      router.replace('/main/login');
       return;
     }
 

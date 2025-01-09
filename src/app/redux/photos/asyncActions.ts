@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { ApiResponse } from '@/app/dashboard/search/types';
+import { ApiResponse } from '@/app/main/search/types';
 import { extractPaginationLinks, extractPhotosData } from '@/app/redux/photos/utils';
 
 import { FetchPhotosParams } from './types';

@@ -1,4 +1,4 @@
-import { Photo } from '@/app/dashboard/search/types';
+import { Photo } from '@/app/main/search/types';
 
 export interface FetchPhotosParams {
   searchValue?: string;

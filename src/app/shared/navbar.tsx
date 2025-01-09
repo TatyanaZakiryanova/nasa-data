@@ -49,10 +49,10 @@ export default function Navbar() {
         <ul className="flex flex-col lg:flex-row lg:gap-2">
           <li>
             <Link
-              href="/dashboard"
+              href="/main"
               onClick={handleLinkClick}
               className={`${linkClasses} ${
-                pathname === '/dashboard' ? 'bg-customButton font-bold' : ''
+                pathname === '/main' ? 'bg-customButton font-bold' : ''
               }`}
             >
               <Camera size={20} />
@@ -61,12 +61,10 @@ export default function Navbar() {
           </li>
           <li>
             <Link
-              href="/dashboard/search"
+              href="/main/search"
               onClick={handleLinkClick}
               className={`${linkClasses} ${
-                pathname === '/dashboard/search'
-                  ? 'bg-customButton font-bold text-white'
-                  : 'text-white'
+                pathname === '/main/search' ? 'bg-customButton font-bold text-white' : 'text-white'
               }`}
             >
               <Search size={20} />
@@ -79,10 +77,10 @@ export default function Navbar() {
             <>
               <li>
                 <Link
-                  href="/dashboard/profile"
+                  href="/main/profile"
                   onClick={handleLinkClick}
                   className={`${linkClasses} ${
-                    pathname === '/dashboard/profile'
+                    pathname === '/main/profile'
                       ? 'bg-customButton font-bold text-white'
                       : 'text-white'
                   }`}
@@ -102,9 +100,9 @@ export default function Navbar() {
             <>
               <li>
                 <Link
-                  href="/dashboard/registration"
+                  href="/main/registration"
                   onClick={handleLinkClick}
-                  className={`${linkClasses} ${pathname === '/dashboard/registration' ? 'bg-customButton font-bold text-white' : 'text-white'}`}
+                  className={`${linkClasses} ${pathname === '/main/registration' ? 'bg-customButton font-bold text-white' : 'text-white'}`}
                 >
                   <UserPlus size={20} />
                   Sign Up
@@ -112,10 +110,10 @@ export default function Navbar() {
               </li>
               <li>
                 <Link
-                  href="/dashboard/login"
+                  href="/main/login"
                   onClick={handleLinkClick}
                   className={`${linkClasses} ${
-                    pathname === '/dashboard/login'
+                    pathname === '/main/login'
                       ? 'bg-customButton font-bold text-white'
                       : 'text-white'
                   }`}

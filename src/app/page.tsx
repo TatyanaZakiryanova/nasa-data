@@ -17,7 +17,7 @@ export default function Home() {
         {user ? (
           <>
             <Button className={`${buttonClasses}`}>
-              <Link href="/dashboard/profile" className={`${linkClasses}`}>
+              <Link href="/main/profile" className={`${linkClasses}`}>
                 <CircleUser size={15} /> Profile
               </Link>
             </Button>
@@ -29,12 +29,12 @@ export default function Home() {
         ) : (
           <>
             <Button className={`${buttonClasses}`}>
-              <Link href="/dashboard/registration" className={`${linkClasses}`}>
+              <Link href="/main/registration" className={`${linkClasses}`}>
                 <UserPlus size={15} /> Sign Up
               </Link>
             </Button>
             <Button className={`${buttonClasses}`}>
-              <Link href="/dashboard/login" className={`${linkClasses}`}>
+              <Link href="/main/login" className={`${linkClasses}`}>
                 <LogIn size={15} /> Sign In
               </Link>
             </Button>
@@ -48,7 +48,7 @@ export default function Home() {
         collection of NASA photos and knowledge
       </span>
       <Link
-        href="/dashboard"
+        href="/main"
         className="text-md md:text-l mt-10 flex w-56 cursor-pointer items-center justify-center gap-1 rounded-lg border-none bg-customButton px-5 py-4 text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:bg-customButtonHover sm:w-64 sm:px-7 sm:py-5"
       >
         Discover the universe

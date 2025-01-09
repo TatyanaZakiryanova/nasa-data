@@ -51,7 +51,7 @@
 - Редирект с адреса профиля на страницу авторизации для неавторизованных пользователей
 - Страницы:
   - Главная страница
-  - Dashboard (Photo of the day)
+  - Main (Photo of the day)
   - Search (поиск фото)
   - Registration
   - Login

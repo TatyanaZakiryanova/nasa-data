@@ -1,7 +1,7 @@
 import { ChevronDown } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
-import { SortOrder } from '../dashboard/profile/types';
+import { SortOrder } from '../main/profile/types';
 
 interface DropdownProps {
   options: SortOrder[];

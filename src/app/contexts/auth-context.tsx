@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     await signOut(auth);
     setUser(null);
     setLoading(false);
-    router.push('/dashboard/login');
+    router.push('/main/login');
   };
 
   return <AuthContext.Provider value={{ user, loading, logout }}>{children}</AuthContext.Provider>;

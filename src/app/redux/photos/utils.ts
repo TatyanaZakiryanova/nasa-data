@@ -1,4 +1,4 @@
-import { CollectionLink, Item, Link, Photo } from '../../dashboard/search/types';
+import { CollectionLink, Item, Link, Photo } from '../../main/search/types';
 
 //функция для извлечения данных о фото из ответа API
 export const extractPhotosData = (items: Item[]): Photo[] => {
