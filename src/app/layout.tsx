@@ -4,6 +4,7 @@ import type { Metadata, Viewport } from 'next';
 import { Roboto } from 'next/font/google';
 
 import { AuthProvider } from './context/auth-context';
+import { ToastProvider } from './context/toast-context';
 
 export const metadata: Metadata = {
   title: 'NASA Data',
@@ -30,7 +31,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <AuthProvider>
-        <body className={roboto.className}>{children}</body>
+        <ToastProvider>
+          <body className={roboto.className}>{children}</body>
+        </ToastProvider>
       </AuthProvider>
     </html>
   );

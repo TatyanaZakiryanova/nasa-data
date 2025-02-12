@@ -1,11 +1,12 @@
+import { renderHook } from '@testing-library/react';
+import { getAuth } from 'firebase/auth';
+import { deleteDoc, doc, setDoc } from 'firebase/firestore';
+
 import { useAuth } from '@/app/context/auth-context';
 import useFavorites from '@/app/hooks/use-favorites';
 import { db } from '@/app/lib/firebase';
 import { addToFavorites, removeFromFavorites } from '@/app/redux/favorites/favoritesSlice';
 import { useAppDispatch, useAppSelector } from '@/app/redux/hooks';
-import { renderHook } from '@testing-library/react';
-import { getAuth } from 'firebase/auth';
-import { deleteDoc, doc, setDoc } from 'firebase/firestore';
 
 jest.mock('@/app/context/auth-context', () => ({
   useAuth: jest.fn(),

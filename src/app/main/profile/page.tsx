@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
 
 import { useAuth } from '@/app/context/auth-context';
+import { useToast } from '@/app/context/toast-context';
 import { db } from '@/app/lib/firebase';
 import { store } from '@/app/redux/store';
 import Button from '@/app/ui/button';
@@ -22,10 +23,9 @@ export default function Profile() {
   const { user, loading: authLoading } = useAuth();
   const [userData, setUserData] = useState<UserData | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
   const [editModalIsOpen, setEditModalIsOpen] = useState<boolean>(false);
-  const [modalMessage, setModalMessage] = useState<string>('');
   const router = useRouter();
+  const { showToast } = useToast();
 
   useEffect(() => {
     if (!user && !authLoading) {
@@ -42,7 +42,7 @@ export default function Profile() {
         if (userDoc.exists()) {
           setUserData(userDoc.data() as UserData);
         } else {
-          openModal('User not found');
+          showToast('User not found');
         }
       } catch {
         console.error('Error loading user data');
@@ -60,19 +60,11 @@ export default function Profile() {
     return <Loader />;
   }
 
-  const openModal = (message: string) => {
-    setModalMessage(message);
-    setModalIsOpen(true);
-    setTimeout(() => {
-      setModalIsOpen(false);
-    }, 2000);
-  };
-
   const handleOpenEditModal = () => {
     if (user && user.emailVerified) {
       setEditModalIsOpen(true);
     } else {
-      openModal('Please confirm your email address to edit your profile');
+      showToast('Please confirm your email address to edit your profile');
     }
   };
 
@@ -105,9 +97,6 @@ export default function Profile() {
       ) : (
         <p>User data not found</p>
       )}
-      <Modal isOpen={modalIsOpen} onClose={() => setModalIsOpen(false)}>
-        <p>{modalMessage}</p>
-      </Modal>
       {user && userData && (
         <Modal isOpen={editModalIsOpen} onClose={() => setEditModalIsOpen(false)}>
           <EditProfile

@@ -1,6 +1,8 @@
-import Button from '@/app/ui/button';
 import '@testing-library/jest-dom';
+
 import { fireEvent, render, screen } from '@testing-library/react';
+
+import Button from '@/app/ui/button';
 
 describe('Button', () => {
   it('calls onClick when clicked and not disabled', () => {

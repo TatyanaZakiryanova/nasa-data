@@ -1,6 +1,7 @@
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+
 import { SortOrder } from '@/app/main/profile/types';
 import { Dropdown } from '@/app/ui/dropdown';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 
 const options: SortOrder[] = [SortOrder.DEFAULT, SortOrder.NEWEST, SortOrder.OLDEST];
 const currentOption: SortOrder = SortOrder.DEFAULT;

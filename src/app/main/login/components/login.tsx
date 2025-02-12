@@ -9,16 +9,15 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import * as Yup from 'yup';
 
+import { useToast } from '@/app/context/toast-context';
 import { auth, db } from '@/app/lib/firebase';
 import Button from '@/app/ui/button';
 import Input from '@/app/ui/input';
-import Modal from '@/app/ui/modal';
 
 export default function Login() {
-  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
-  const [modalMessage, setModalMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
+  const { showToast } = useToast();
 
   const formik = useFormik({
     initialValues: {
@@ -43,23 +42,15 @@ export default function Login() {
         await updateDoc(userDocRef, {
           lastLogin: serverTimestamp(),
         });
-        openModal(`Login successful! User: ${user.email}`);
+        showToast(`Login successful! User: ${user.email}`);
         router.replace('/main/profile');
       } catch {
-        openModal('Error logging in');
+        showToast('Error logging in');
       } finally {
         setIsLoading(false);
       }
     },
   });
-
-  const openModal = (message: string) => {
-    setModalMessage(message);
-    setModalIsOpen(true);
-    setTimeout(() => {
-      setModalIsOpen(false);
-    }, 2000);
-  };
 
   return (
     <form
@@ -111,9 +102,6 @@ export default function Login() {
           Sign up
         </Link>
       </p>
-      <Modal isOpen={modalIsOpen} onClose={() => setModalIsOpen(false)}>
-        <p>{modalMessage}</p>
-      </Modal>
     </form>
   );
 }

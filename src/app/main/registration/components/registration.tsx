@@ -9,16 +9,15 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import * as Yup from 'yup';
 
+import { useToast } from '@/app/context/toast-context';
 import { auth, db } from '@/app/lib/firebase';
 import Button from '@/app/ui/button';
 import Input from '@/app/ui/input';
-import Modal from '@/app/ui/modal';
 
 export default function Register() {
-  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
-  const [modalMessage, setModalMessage] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
+  const { showToast } = useToast();
 
   const formik = useFormik({
     initialValues: {
@@ -51,30 +50,17 @@ export default function Register() {
           lastLogin: new Date(),
           roles: ['user'],
         });
-        openModalRegister(
+        showToast(
           'Registration successful! Please confirm your email before accessing full features',
         );
         router.replace('/main/profile');
       } catch {
-        openModal('Error registering user');
+        showToast('Error registering user');
       } finally {
         setIsLoading(false);
       }
     },
   });
-
-  const openModal = (message: string) => {
-    setModalMessage(message);
-    setModalIsOpen(true);
-    setTimeout(() => {
-      setModalIsOpen(false);
-    }, 2000);
-  };
-
-  const openModalRegister = (message: string) => {
-    setModalMessage(message);
-    setModalIsOpen(true);
-  };
 
   return (
     <form
@@ -139,9 +125,6 @@ export default function Register() {
           Sign in
         </Link>
       </p>
-      <Modal isOpen={modalIsOpen} onClose={() => setModalIsOpen(false)}>
-        <p>{modalMessage}</p>
-      </Modal>
     </form>
   );
 }
