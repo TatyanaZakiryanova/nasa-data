@@ -26,6 +26,7 @@ export default function Search({ initialPhotos }: SearchProps) {
   const [selectedPhoto, setSelectedPhoto] = useState<Photo | InitialPhoto | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [initialStatePhotos, setInitialStatePhotos] = useState<InitialPhoto[]>(initialPhotos);
+  const [selectedPhotoId, setSelectedPhotoId] = useState<string>('');
   const dispatch = useAppDispatch();
   const { photos, status, totalItems, prevPageUrl, nextPageUrl } = useAppSelector(
     (state) => state.photos,
@@ -56,9 +57,10 @@ export default function Search({ initialPhotos }: SearchProps) {
     [searchValue, dispatch],
   );
 
-  const openModal = (photo: Photo | InitialPhoto) => {
+  const openModal = (photo: Photo | InitialPhoto, id: string) => {
     setIsModalOpen(true);
     setSelectedPhoto(photo);
+    setSelectedPhotoId(id);
   };
 
   const closeModal = () => {
@@ -95,31 +97,37 @@ export default function Search({ initialPhotos }: SearchProps) {
       />
       <div className="mt-5 flex flex-wrap justify-center">
         {photos.length > 0
-          ? photos.map((photo) => (
-              <PhotoCard
-                key={photo.nasa_id}
-                id={photo.nasa_id}
-                title={photo.title}
-                imageUrl={photo.imageLink}
-                center={photo.center}
-                date={photo.date_created}
-                description={photo.description}
-                onClick={() => openModal(photo)}
-              />
-            ))
+          ? photos.map((photo) => {
+              const id = photo.nasa_id;
+              return (
+                <PhotoCard
+                  key={photo.nasa_id}
+                  id={photo.nasa_id}
+                  title={photo.title}
+                  imageUrl={photo.imageLink}
+                  center={photo.center}
+                  date={photo.date_created}
+                  description={photo.description}
+                  onClick={() => openModal(photo, id)}
+                />
+              );
+            })
           : status === Status.IDLE &&
-            initialStatePhotos.map((initialPhoto) => (
-              <PhotoCard
-                key={`${initialPhoto.date}-${initialPhoto.url.split('/').pop()}`}
-                id={`${initialPhoto.date}-${initialPhoto.url.split('/').pop()}`}
-                title={initialPhoto.title}
-                imageUrl={initialPhoto.url}
-                copyright={initialPhoto.copyright}
-                date={initialPhoto.date}
-                description={initialPhoto.explanation}
-                onClick={() => openModal(initialPhoto)}
-              />
-            ))}
+            initialStatePhotos.map((initialPhoto) => {
+              const id = `${initialPhoto.date}-${initialPhoto.url.split('/').pop()}`;
+              return (
+                <PhotoCard
+                  key={id}
+                  id={id}
+                  title={initialPhoto.title}
+                  imageUrl={initialPhoto.url}
+                  copyright={initialPhoto.copyright}
+                  date={initialPhoto.date}
+                  description={initialPhoto.explanation}
+                  onClick={() => openModal(initialPhoto, id)}
+                />
+              );
+            })}
       </div>
       {photos.length > 0 && (
         <Pagination
@@ -130,7 +138,7 @@ export default function Search({ initialPhotos }: SearchProps) {
       )}
       {selectedPhoto && (
         <Modal isOpen={isModalOpen} onClose={closeModal} title={selectedPhoto.title}>
-          <PhotoModal {...getPhotoDetails(selectedPhoto)} />
+          <PhotoModal {...getPhotoDetails(selectedPhoto, selectedPhotoId)} />
         </Modal>
       )}
     </>

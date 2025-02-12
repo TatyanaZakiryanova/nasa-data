@@ -11,8 +11,8 @@ const config: Config = {
       colors: {
         customBackground: 'rgb(44, 44, 44)',
         customBackground2: 'rgb(59, 59, 59)',
-        customButton: 'rgb(104, 65, 151)',
-        customButtonHover: 'rgb(83, 44, 128)',
+        customButton: 'rgb(99, 63, 140)',
+        customButtonHover: 'rgb(94, 54, 139)',
         customTextColor: 'rgb(224, 224, 224)',
       },
       keyframes: {

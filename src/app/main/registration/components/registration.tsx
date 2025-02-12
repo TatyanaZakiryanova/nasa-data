@@ -77,73 +77,71 @@ export default function Register() {
   };
 
   return (
-    <>
-      <form
-        onSubmit={formik.handleSubmit}
-        className="flex w-full max-w-[300px] flex-col gap-4 text-center"
+    <form
+      onSubmit={formik.handleSubmit}
+      className="flex w-full max-w-[300px] flex-col gap-4 text-center"
+    >
+      <p className="flex items-center justify-center gap-2 text-xl">
+        <UserPlus size={20} />
+        Sign Up
+      </p>
+      <Input
+        id="name"
+        name="name"
+        type="text"
+        placeholder="Name"
+        inputValue={formik.values.name}
+        handleInput={formik.handleChange}
+        handleBlur={formik.handleBlur}
+        className={`p-2 shadow-md`}
+      />
+      {formik.touched.name && formik.errors.name ? (
+        <span className="text-sm text-red-500">{formik.errors.name}</span>
+      ) : null}
+      <Input
+        id="email"
+        name="email"
+        type="email"
+        placeholder="Email"
+        inputValue={formik.values.email}
+        handleInput={formik.handleChange}
+        handleBlur={formik.handleBlur}
+        className={`p-2 shadow-md`}
+        autoComplete="email"
+      />
+      {formik.touched.email && formik.errors.email ? (
+        <span className="text-sm text-red-500">{formik.errors.email}</span>
+      ) : null}
+      <Input
+        id="password"
+        name="password"
+        type="password"
+        placeholder="Password"
+        inputValue={formik.values.password}
+        handleInput={formik.handleChange}
+        handleBlur={formik.handleBlur}
+        className={`p-2 shadow-md`}
+        autoComplete="current-password"
+      />
+      {formik.touched.password && formik.errors.password ? (
+        <span className="text-sm text-red-500">{formik.errors.password}</span>
+      ) : null}
+      <Button
+        type="submit"
+        className="px-5 py-2"
+        disabled={!formik.isValid || !formik.dirty || isLoading}
       >
-        <p className="flex items-center justify-center gap-2 text-xl">
-          <UserPlus size={20} />
-          Sign Up
-        </p>
-        <Input
-          id="name"
-          name="name"
-          type="text"
-          placeholder="Name"
-          inputValue={formik.values.name}
-          handleInput={formik.handleChange}
-          handleBlur={formik.handleBlur}
-          className={`p-2 shadow-md`}
-        />
-        {formik.touched.name && formik.errors.name ? (
-          <span className="text-sm text-red-500">{formik.errors.name}</span>
-        ) : null}
-        <Input
-          id="email"
-          name="email"
-          type="email"
-          placeholder="Email"
-          inputValue={formik.values.email}
-          handleInput={formik.handleChange}
-          handleBlur={formik.handleBlur}
-          className={`p-2 shadow-md`}
-          autoComplete="email"
-        />
-        {formik.touched.email && formik.errors.email ? (
-          <span className="text-sm text-red-500">{formik.errors.email}</span>
-        ) : null}
-        <Input
-          id="password"
-          name="password"
-          type="password"
-          placeholder="Password"
-          inputValue={formik.values.password}
-          handleInput={formik.handleChange}
-          handleBlur={formik.handleBlur}
-          className={`p-2 shadow-md`}
-          autoComplete="current-password"
-        />
-        {formik.touched.password && formik.errors.password ? (
-          <span className="text-sm text-red-500">{formik.errors.password}</span>
-        ) : null}
-        <Button
-          type="submit"
-          className="px-5 py-2"
-          disabled={!formik.isValid || !formik.dirty || isLoading}
-        >
-          {isLoading ? 'In progress...' : 'Sign up'}
-        </Button>
-        <p className="text-xs">
-          Already registered?{' '}
-          <Link href="/main/login" className="text-purple-600 hover:underline">
-            Sign in
-          </Link>
-        </p>
-        <Modal isOpen={modalIsOpen} onClose={() => setModalIsOpen(false)}>
-          <p>{modalMessage}</p>
-        </Modal>
-      </form>
-    </>
+        {isLoading ? 'In progress...' : 'Sign up'}
+      </Button>
+      <p className="text-xs">
+        Already registered?{' '}
+        <Link href="/main/login" className="text-purple-600 hover:underline">
+          Sign in
+        </Link>
+      </p>
+      <Modal isOpen={modalIsOpen} onClose={() => setModalIsOpen(false)}>
+        <p>{modalMessage}</p>
+      </Modal>
+    </form>
   );
 }

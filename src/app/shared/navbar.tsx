@@ -14,7 +14,7 @@ export default function Navbar() {
   const menuRef = useRef<HTMLDivElement | null>(null);
 
   const linkClasses =
-    'flex items-center gap-2 rounded-lg p-3 text-sm text-white transition-all duration-300 hover:bg-customButtonHover';
+    'flex items-center gap-2 rounded-lg p-3 text-sm text-customTextColor transition-all duration-300 hover:bg-customButtonHover';
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -44,7 +44,7 @@ export default function Navbar() {
       </button>
       <div
         ref={menuRef}
-        className={`w-full lg:flex lg:justify-between ${isMenuOpen ? 'absolute left-0 right-0 top-full z-10 block w-full rounded-lg bg-customBackground' : 'hidden'} lg:block`}
+        className={`w-full lg:flex lg:justify-between ${isMenuOpen ? 'z-999 absolute left-0 right-0 top-full block w-full rounded-lg bg-customBackground' : 'hidden'} lg:block`}
       >
         <ul className="flex flex-col lg:flex-row lg:gap-2">
           <li>

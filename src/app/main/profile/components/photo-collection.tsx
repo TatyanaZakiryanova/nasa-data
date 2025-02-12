@@ -104,6 +104,8 @@ export default function PhotoCollection() {
       {selectedPhoto && (
         <Modal isOpen={isModalOpen} onClose={closeModal} title={selectedPhoto.title}>
           <PhotoModal
+            id={selectedPhoto.id}
+            title={selectedPhoto.title}
             imageSrc={selectedPhoto.imageUrl}
             description={selectedPhoto.description}
             date_created={selectedPhoto.date}

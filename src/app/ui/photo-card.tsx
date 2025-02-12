@@ -63,7 +63,7 @@ const PhotoCard: React.FC<PhotoCardProps> = React.memo(
           </div>
         )}
         {copyright && <span className="text-[10px]">{copyright}</span>}
-        <span className="text-[10px]">{date}</span>
+        <span className="text-[10px]">{date.replace('T', ', ').replace('Z', '')}</span>
       </div>
     );
   },

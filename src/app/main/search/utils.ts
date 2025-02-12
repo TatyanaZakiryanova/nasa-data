@@ -1,7 +1,7 @@
 import { InitialPhoto, Photo } from './types';
 
-export const getPhotoDetails = (photo: Photo | InitialPhoto) => ({
-  id: 'nasa_id' in photo ? photo.nasa_id : `${photo.date}-${photo.url.split('/').pop()}`,
+export const getPhotoDetails = (photo: Photo | InitialPhoto, id: string) => ({
+  id: 'nasa_id' in photo ? photo.nasa_id : id,
   title: photo.title,
   imageSrc: 'url' in photo ? photo.url : photo.fullImageLink || photo.imageLink,
   description: 'description' in photo ? photo.description : photo.explanation,
