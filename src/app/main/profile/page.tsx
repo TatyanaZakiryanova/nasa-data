@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
 
-import { useAuth } from '@/app/contexts/auth-context';
+import { useAuth } from '@/app/context/auth-context';
 import { db } from '@/app/lib/firebase';
 import { store } from '@/app/redux/store';
 import Button from '@/app/ui/button';

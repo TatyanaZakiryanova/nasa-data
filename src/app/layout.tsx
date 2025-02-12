@@ -3,7 +3,7 @@ import './globals.css';
 import type { Metadata, Viewport } from 'next';
 import { Roboto } from 'next/font/google';
 
-import { AuthProvider } from './contexts/auth-context';
+import { AuthProvider } from './context/auth-context';
 
 export const metadata: Metadata = {
   title: 'NASA Data',

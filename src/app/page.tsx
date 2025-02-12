@@ -3,7 +3,7 @@
 import { CircleUser, LogIn, LogOut, UserPlus } from 'lucide-react';
 import Link from 'next/link';
 
-import { useAuth } from './contexts/auth-context';
+import { useAuth } from './context/auth-context';
 import Button from './ui/button';
 
 export default function Home() {

@@ -1,6 +1,6 @@
 import { deleteDoc, doc, setDoc } from 'firebase/firestore';
 
-import { useAuth } from '../contexts/auth-context';
+import { useAuth } from '../context/auth-context';
 import { db } from '../lib/firebase';
 import { addToFavorites, removeFromFavorites } from '../redux/favorites/favoritesSlice';
 import { FavoritePhoto } from '../redux/favorites/types';

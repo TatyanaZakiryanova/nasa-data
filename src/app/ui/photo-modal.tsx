@@ -2,7 +2,7 @@ import { Loader, Star, StarOff } from 'lucide-react';
 import React from 'react';
 import { useState } from 'react';
 
-import { useAuth } from '../contexts/auth-context';
+import { useAuth } from '../context/auth-context';
 import useFavorites from '../hooks/use-favorites';
 import { FavoritePhoto } from '../redux/favorites/types';
 import Button from './button';

@@ -4,7 +4,7 @@ import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
 import { Loader } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
-import { useAuth } from '@/app/contexts/auth-context';
+import { useAuth } from '@/app/context/auth-context';
 import { db } from '@/app/lib/firebase';
 import { setFavorites } from '@/app/redux/favorites/favoritesSlice';
 import { FavoritePhoto } from '@/app/redux/favorites/types';

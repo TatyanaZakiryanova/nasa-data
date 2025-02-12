@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
-import { useAuth } from '../contexts/auth-context';
+import { useAuth } from '../context/auth-context';
 
 export default function Navbar() {
   const pathname = usePathname();

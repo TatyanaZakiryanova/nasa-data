@@ -4,7 +4,7 @@ import { Star } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
 
-import { useAuth } from '../contexts/auth-context';
+import { useAuth } from '../context/auth-context';
 import useFavorites from '../hooks/use-favorites';
 import { FavoritePhoto } from '../redux/favorites/types';
 
