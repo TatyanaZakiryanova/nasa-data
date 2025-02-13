@@ -72,8 +72,11 @@ export default function Profile() {
     <div>
       <div className="mb-3 flex items-center justify-center gap-2">
         <h1 className="text-2xl">Profile</h1>
-        <Button onClick={handleOpenEditModal} className="px-3 py-1 text-sm">
-          <UserRoundPen size={18} />
+        <Button
+          onClick={handleOpenEditModal}
+          className="flex justify-center gap-1 px-3 py-1 text-sm"
+        >
+          Edit <UserRoundPen size={18} />
         </Button>
       </div>
       {userData ? (

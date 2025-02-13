@@ -50,9 +50,7 @@ export default function Register() {
           lastLogin: new Date(),
           roles: ['user'],
         });
-        showToast(
-          'Registration successful! Please confirm your email before accessing full features',
-        );
+        showToast('Registration successful! Please confirm your email');
         router.replace('/main/profile');
       } catch {
         showToast('Error registering user');
