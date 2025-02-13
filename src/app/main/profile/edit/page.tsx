@@ -113,7 +113,7 @@ export default function EditProfile() {
           handleInput={formik.handleChange}
           handleBlur={formik.handleBlur}
           placeholder="Name"
-          className="p-1"
+          className="p-2"
         />
         {formik.touched.name && formik.errors.name ? (
           <span className="text-sm text-red-500">{formik.errors.name}</span>
@@ -129,7 +129,7 @@ export default function EditProfile() {
           handleInput={formik.handleChange}
           handleBlur={formik.handleBlur}
           placeholder="Email"
-          className="p-1"
+          className="p-2"
           autoComplete="email"
         />
         {formik.touched.email && formik.errors.email ? (
@@ -146,7 +146,7 @@ export default function EditProfile() {
           handleInput={formik.handleChange}
           handleBlur={formik.handleBlur}
           placeholder="Current password"
-          className="p-1"
+          className="p-2"
           autoComplete="current-password"
         />
         {formik.touched.currentPassword && formik.errors.currentPassword ? (
@@ -163,7 +163,7 @@ export default function EditProfile() {
           handleInput={formik.handleChange}
           handleBlur={formik.handleBlur}
           placeholder="New password"
-          className="p-1"
+          className="p-2"
         />
         {formik.touched.newPassword && formik.errors.newPassword ? (
           <span className="text-sm text-red-500">{formik.errors.newPassword}</span>

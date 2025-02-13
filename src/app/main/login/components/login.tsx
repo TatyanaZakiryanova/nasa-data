@@ -42,10 +42,10 @@ export default function Login() {
         await updateDoc(userDocRef, {
           lastLogin: serverTimestamp(),
         });
-        showToast(`Login successful! User: ${user.email}`);
+        showToast(`You are signed in as ${user.email}`);
         router.replace('/main/profile');
       } catch {
-        showToast('Error logging in');
+        showToast('Incorrect email or password');
       } finally {
         setIsLoading(false);
       }

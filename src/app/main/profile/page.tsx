@@ -1,6 +1,6 @@
 'use client';
 
-import { CircleUser, Film, UserRoundPen } from 'lucide-react';
+import { CircleAlert, CircleUser, Film, UserRoundPen } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { Provider } from 'react-redux';
 
@@ -42,8 +42,20 @@ export default function Profile() {
           <div className="mb-8 flex flex-col items-center gap-2">
             <CircleUser strokeWidth={1} size={60} />
             <h1 className="text-xl font-bold">{userData.name}</h1>
-            <h2 className="mb-3 text-sm">{userData.email}</h2>
-            {userData.profilePicture && <img src={userData.profilePicture} alt="Profile" />}
+            <div className="mb-3 flex flex-col items-center justify-center gap-2">
+              <h2 className="text-sm">{userData.email}</h2>
+              {user && !user.emailVerified && (
+                <span
+                  className="flex cursor-pointer items-center gap-1 text-xs text-customTextColor text-opacity-50 hover:underline"
+                  onClick={() =>
+                    showToast('A verification letter has already been sent to your email')
+                  }
+                >
+                  <CircleAlert size={16} />
+                  Please confirm your email
+                </span>
+              )}
+            </div>
           </div>
           <p className="mb-5 flex items-center justify-center gap-1 text-xl">
             <Film size={20} strokeWidth={1.5} />
