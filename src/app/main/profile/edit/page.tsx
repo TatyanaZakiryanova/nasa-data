@@ -7,58 +7,25 @@ import {
   updateEmail,
   updatePassword,
 } from 'firebase/auth';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
+import { doc, updateDoc } from 'firebase/firestore';
 import { useFormik } from 'formik';
 import { UserRoundPen } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import * as Yup from 'yup';
 
-import { useAuth } from '@/app/context/auth-context';
 import { useToast } from '@/app/context/toast-context';
+import useUserData from '@/app/hooks/use-userdata';
 import { auth, db } from '@/app/lib/firebase';
 import Button from '@/app/ui/button';
 import Input from '@/app/ui/input';
 import Loader from '@/app/ui/loader/loader';
 
-import { UserData } from '../types';
-
 export default function EditProfile() {
-  const { user, loading: authLoading } = useAuth();
-  const [userData, setUserData] = useState<UserData | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [uploading, setUploading] = useState<boolean>(false);
   const { showToast } = useToast();
   const router = useRouter();
-
-  useEffect(() => {
-    if (!user && !authLoading) {
-      router.replace('/main/login');
-      return;
-    }
-
-    const fetchUserData = async () => {
-      if (!user) return;
-      try {
-        const userDocRef = doc(db, 'users', user.uid);
-        const userDoc = await getDoc(userDocRef);
-
-        if (userDoc.exists()) {
-          setUserData(userDoc.data() as UserData);
-        } else {
-          showToast('User not found');
-        }
-      } catch {
-        console.error('Error loading user data');
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    if (user) {
-      fetchUserData();
-    }
-  }, [user, authLoading, router]);
+  const { userData, isLoading, authLoading, setUserData } = useUserData();
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -71,7 +38,9 @@ export default function EditProfile() {
     validationSchema: Yup.object({
       name: Yup.string().required('Name is required'),
       email: Yup.string().email('Invalid email format').required('Email is required'),
-      currentPassword: Yup.string().required('Current password is required'),
+      currentPassword: Yup.string()
+        .min(6, 'Password must be at least 6 characters')
+        .required('Current password is required'),
       newPassword: Yup.string().min(6, 'Password must be at least 6 characters'),
     }),
     onSubmit: async (values) => {
