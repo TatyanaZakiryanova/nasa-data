@@ -24,10 +24,15 @@ const config: Config = {
           '0%': { transform: 'translateY(-50px)', opacity: '0' },
           '100%': { transform: 'translateY(0)', opacity: '1' },
         },
+        toastOut: {
+          '0%': { transform: 'translateY(0)', opacity: '1' },
+          '100%': { transform: 'translateY(-50px)', opacity: '0' },
+        },
       },
       animation: {
         fadeIn: 'fadeIn 0.4s ease-out forwards',
         toastIn: 'toastIn 0.3s ease-out',
+        toastOut: 'toastOut 0.3s ease-in',
       },
     },
   },
