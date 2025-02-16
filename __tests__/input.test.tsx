@@ -9,7 +9,7 @@ describe('Input', () => {
     const handleInput = jest.fn();
     render(<Input id="test-input" name="test" inputValue="" handleInput={handleInput} />);
 
-    fireEvent.change(screen.getByPlaceholderText('Search for photos...'), {
+    fireEvent.change(screen.getByPlaceholderText(/search for photos.../i), {
       target: { value: 'new value' },
     });
 
@@ -17,8 +17,9 @@ describe('Input', () => {
   });
 
   it('renders loading indicator when loading is true', () => {
+    const handleInput = jest.fn();
     render(
-      <Input id="test-input" name="test" inputValue="" loading={true} handleInput={jest.fn()} />,
+      <Input id="test-input" name="test" inputValue="" loading={true} handleInput={handleInput} />,
     );
 
     expect(screen.getByTestId('loader')).toBeInTheDocument();

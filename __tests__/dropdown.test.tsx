@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import { SortOrder } from '@/app/main/profile/types';
 import { Dropdown } from '@/app/ui/dropdown';
@@ -18,9 +18,7 @@ describe('Dropdown', () => {
     expect(screen.getByRole('list')).toBeInTheDocument();
     fireEvent.mouseDown(document.body);
 
-    await waitFor(() => {
-      expect(screen.queryByRole('list')).toBeNull();
-    });
+    expect(screen.queryByRole('list')).toBeNull();
   });
 
   it('calls handleOption with the correct option', () => {
