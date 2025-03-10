@@ -1,6 +1,7 @@
-import { CollectionLink, Item, Link, Photo } from '../../main/search/types';
+import { Photo } from '@/app/main/search/types';
 
-//функция для извлечения данных о фото из ответа API
+import { CollectionLink, Item, Link } from './types';
+
 export const extractPhotosData = (items: Item[]): Photo[] => {
   return (
     items.map((item: Item) => {
@@ -21,7 +22,6 @@ export const extractPhotosData = (items: Item[]): Photo[] => {
   );
 };
 
-//функция для извлечения ссылок для пагинации из ответа API
 export const extractPaginationLinks = (
   links: CollectionLink[],
 ): { nextPageUrl: string; prevPageUrl: string } => {

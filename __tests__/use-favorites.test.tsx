@@ -22,8 +22,6 @@ jest.mock('firebase/firestore', () => ({
   doc: jest.fn(),
   setDoc: jest.fn(),
   deleteDoc: jest.fn(),
-  getDoc: jest.fn(),
-  updateDoc: jest.fn(),
 }));
 
 jest.mock('firebase/app', () => ({
@@ -47,14 +45,10 @@ describe('useFavorites', () => {
     description: 'desc',
   };
 
-  beforeEach(() => {
-    jest.clearAllMocks();
-
-    (useAuth as jest.Mock).mockReturnValue({ user: mockUser });
-    (useAppDispatch as jest.Mock).mockReturnValue(mockDispatch);
-    (getAuth as jest.Mock).mockReturnValue({
-      currentUser: mockUser,
-    });
+  (useAuth as jest.Mock).mockReturnValue({ user: mockUser });
+  (useAppDispatch as jest.Mock).mockReturnValue(mockDispatch);
+  (getAuth as jest.Mock).mockReturnValue({
+    currentUser: mockUser,
   });
 
   it('returns correct isFavorite value', () => {

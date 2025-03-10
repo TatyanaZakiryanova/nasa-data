@@ -8,10 +8,6 @@ jest.mock('@/app/context/auth-context', () => ({
   useAuth: jest.fn(),
 }));
 
-jest.mock('@/app/hooks/use-favorites', () => ({
-  useFavorites: jest.fn(),
-}));
-
 jest.mock('@/app/hooks/use-favorites', () => jest.fn());
 
 describe('PhotoCard', () => {
@@ -73,10 +69,9 @@ describe('PhotoCard', () => {
   });
 
   it('displays the star with opacity 100 when isFavorite is true', () => {
-    const handleToggleFavoriteMock = jest.fn();
     (useFavorites as jest.Mock).mockReturnValue({
       isFavorite: true,
-      handleToggleFavorite: handleToggleFavoriteMock,
+      handleToggleFavorite: jest.fn(),
     });
 
     render(<PhotoCard {...photo} onClick={jest.fn()} />);
@@ -88,10 +83,9 @@ describe('PhotoCard', () => {
   });
 
   it('does not display the star with opacity 100 when isFavorite is false', () => {
-    const handleToggleFavoriteMock = jest.fn();
     (useFavorites as jest.Mock).mockReturnValue({
       isFavorite: false,
-      handleToggleFavorite: handleToggleFavoriteMock,
+      handleToggleFavorite: jest.fn(),
     });
 
     render(<PhotoCard {...photo} onClick={jest.fn()} />);

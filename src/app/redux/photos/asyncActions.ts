@@ -1,12 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { ApiResponse } from '@/app/main/search/types';
 import { extractPaginationLinks, extractPhotosData } from '@/app/redux/photos/utils';
 
-import { FetchPhotosParams } from './types';
-
-// fetchPhotos делает запрос на получение фото по введённому значению searchValue.
-// Если передан URL для пагинации, запрос выполняется по нему
+import { ApiResponse, FetchPhotosParams } from './types';
 
 export const fetchPhotos = createAsyncThunk(
   'photos/fetchPhotos',
@@ -16,8 +12,6 @@ export const fetchPhotos = createAsyncThunk(
     const requestUrl =
       url || `https://images-api.nasa.gov/search?q=${searchValue}&media_type=image`;
 
-    // API возвращает ссылки для пагинации с 'http'. Делаем замену на 'https',
-    // чтобы исключить двойной запрос с редиректом
     const finalUrl = requestUrl.replace(/^http:\/\//, 'https://');
 
     try {

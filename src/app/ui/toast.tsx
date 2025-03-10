@@ -19,7 +19,7 @@ const Toast: React.FC<ToastProps> = ({ message }) => {
   return createPortal(
     <div className="fixed left-1/2 top-5 z-50 -translate-x-1/2 transform">
       <div
-        className={`${isFadingOut ? 'animate-toastOut' : 'animate-toastIn'} rounded-md bg-customButton px-6 py-3 text-white shadow-lg`}
+        className={`${isFadingOut ? 'animate-toastOut' : 'animate-toastIn'} rounded-md bg-customButton px-6 py-3 text-center text-white shadow-lg`}
       >
         {message}
       </div>
