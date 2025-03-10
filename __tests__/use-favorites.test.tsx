@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react';
+import { act, renderHook } from '@testing-library/react';
 import { getAuth } from 'firebase/auth';
 import { deleteDoc, doc, setDoc } from 'firebase/firestore';
 
@@ -62,7 +62,10 @@ describe('useFavorites', () => {
     (useAppSelector as jest.Mock).mockReturnValue([]);
 
     const { result } = renderHook(() => useFavorites({ photo }));
-    result.current.handleToggleFavorite({ stopPropagation: jest.fn() });
+
+    await act(async () => {
+      result.current.handleToggleFavorite({ stopPropagation: jest.fn() });
+    });
 
     expect(mockDispatch).toHaveBeenCalledWith(addToFavorites(photo));
     expect(setDoc).toHaveBeenCalledWith(
@@ -75,7 +78,10 @@ describe('useFavorites', () => {
     (useAppSelector as jest.Mock).mockReturnValue([{ id: 'photo1' }]);
 
     const { result } = renderHook(() => useFavorites({ photo }));
-    result.current.handleToggleFavorite({ stopPropagation: jest.fn() });
+
+    await act(async () => {
+      result.current.handleToggleFavorite({ stopPropagation: jest.fn() });
+    });
 
     expect(mockDispatch).toHaveBeenCalledWith(removeFromFavorites(photo.id));
 
