@@ -38,13 +38,13 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="relative flex items-center justify-between rounded-lg bg-customBackground p-4 shadow-md">
+    <nav className="relative z-[100] flex items-center justify-between rounded-lg bg-customBackground p-4 shadow-md">
       <button onClick={toggleMenu} className="lg:hidden">
         <span className="text-white">☰</span>
       </button>
       <div
         ref={menuRef}
-        className={`w-full lg:flex lg:justify-between ${isMenuOpen ? 'z-999 absolute left-0 right-0 top-full block w-full rounded-lg bg-customBackground' : 'hidden'} lg:block`}
+        className={`w-full lg:flex lg:justify-between ${isMenuOpen ? 'absolute left-0 right-0 top-full block w-full rounded-lg bg-customBackground' : 'hidden'} lg:block`}
       >
         <ul className="flex flex-col lg:flex-row lg:gap-2">
           <li>

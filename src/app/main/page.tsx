@@ -41,11 +41,11 @@ export default async function DataOfTheDay() {
               allow="autoplay; encrypted-media"
               allowFullScreen
               title={data.title}
-              className="absolute left-0 top-0 h-full w-full"
+              className="absolute left-0 top-0 z-10 h-full w-full"
             ></iframe>
           </div>
         ) : (
-          <div className="relative w-full" style={{ aspectRatio: '16/9' }}>
+          <div className="relative z-10 w-full" style={{ aspectRatio: '16/9' }}>
             <Image
               src={data.url}
               alt={data.title}
