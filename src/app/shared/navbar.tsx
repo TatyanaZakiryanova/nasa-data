@@ -38,7 +38,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="relative z-[100] flex items-center justify-between rounded-lg bg-customBackground p-4 shadow-md">
+    <nav className="relative z-50 flex items-center justify-between rounded-lg bg-customBackground p-4 shadow-md">
       <button onClick={toggleMenu} className="lg:hidden">
         <span className="text-white">☰</span>
       </button>

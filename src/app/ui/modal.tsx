@@ -18,7 +18,7 @@ const Modal: React.FC<ModalProps> = React.memo(
 
     return (
       <div
-        className="fixed inset-0 z-50 flex items-center justify-center bg-black/70"
+        className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70"
         onClick={onClose}
       >
         <div
