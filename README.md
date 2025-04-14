@@ -122,6 +122,20 @@ in the project directory enter:
 npm install
 ```
 
+create .env.local file in the root directory and specify your api key and firebase config:
+
+```
+NASA_API_KEY=your_api_key
+
+NEXT_PUBLIC_FIREBASE_API_KEY=your_firebase_config
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_firebase_config
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_firebase_config
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_firebase_config
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_firebase_config
+NEXT_PUBLIC_FIREBASE_APP_ID=your_firebase_config
+NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=your_firebase_config
+```
+
 and then run in dev mode:
 
 ```js
