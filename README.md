@@ -1,12 +1,12 @@
 # NASA Data
 
-Приложение с данными [NASA](https://api.nasa.gov/).
+Приложение с фотографиями [NASA](https://api.nasa.gov/).
 
 ## Deployment & Live Demo
 
 [Deploy](https://datanasa.netlify.app/)
 
-<img src="./public/preview.gif" alt="preview" />
+<img src="./public/gifpreview.gif" alt="preview" />
 
 ## Technologies Used
 
@@ -122,21 +122,7 @@ in the project directory enter:
 npm install
 ```
 
-create .env.local file in the root directory and specify your api key and firebase config:
-
-```
-NASA_API_KEY=your_api_key
-
-NEXT_PUBLIC_FIREBASE_API_KEY=your_firebase_config
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_firebase_config
-NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_firebase_config
-NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_firebase_config
-NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_firebase_config
-NEXT_PUBLIC_FIREBASE_APP_ID=your_firebase_config
-NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=your_firebase_config
-```
-
-and then run in dev mode:
+create .env.local file in the root directory and then run:
 
 ```js
 npm run dev
