@@ -1,58 +1,60 @@
 # NASA Data
 
-Приложение с фотографиями [NASA](https://api.nasa.gov/).
+App with [NASA](https://api.nasa.gov/) space photos.
 
-## Deployment & Live Demo
+[README на русском](./README.ru.md)
+
+## Deployment
 
 [Deploy](https://datanasa.netlify.app/)
 
 <img src="./public/nasa_preview.gif" alt="preview" />
 
-## Technologies Used
+## Technologies
 
-- Typescript
-- React
-- Next.js
-- Redux Toolkit
-- Firebase (Authentication, Firestore)
-- Tailwind CSS
-- SCSS (Sass)
-- Formik, Yup
-- Jest, React Testing Library
-- ESLint, Prettier
-- Nasa API
+- **TypeScript**
+- **React**
+- **Next.js**
+- **Redux Toolkit**
+- **Firebase** (Authentication, Firestore)
+- **Tailwind CSS**
+- **SCSS** (Sass)
+- **Formik, Yup**
+- **Jest, React Testing Library**
+- **ESLint, Prettier**
+- **Nasa API**
 
 ## Features
 
-- Страница фотографии/видео дня (ISR)
-- Поиск фотографий
-- Информация о фото в модальном окне (название, полный размер фото, дата, центр/копирайт, описание)
-- Отображение подборки фотографий "фото дня" перед выполнением поиска (SSR)
-- Пагинация
-- Регистрация (firebase) по почте и паролю
-- Авторизация (firebase)
-- Валидация форм регистрации и авторизации
-- Отправка письма для подтверждения почты при регистрации
-- Добавление фотографий в коллекцию (firestore) - кастомный хук useFavorites
-- Страница профиля
-- Кастомный хук useUserData для получения данных пользователя
-- Отображение коллекции фото в профиле
-- Сортировка добавленных фотографий по датам
-- Редактирование профиля (доступно при подтверждённой почте)
-- Переиспользуемые UI-компоненты (кнопки, инпуты, модальные окна, карточки фото, дропдауны, тосты)
-- Покрытие тестами
+- Photo/Video of the Day page with **Incremental Static Regeneration** (ISR)
+- Photo search
+- Detailed photo information in a modal window (title, full-size image, date, copyright/center, description)
+- Initial display of a **“Photo of the Day” gallery** before searching with **Server-Side Rendering** (SSR)
+- Pagination
+- Registration with email and password **(Firebase Authentication)**
+- Login **(Firebase Authentication)**
+- Form validation for registration and login
+- **Email verification** flow during registration
+- Adding photos to a personal collection **(stored in Firestore)** — handled via a **custom useFavorites hook**
+- Profile page with user data
+- **Custom useUserData hook** for accessing user information
+- Display of the **user's photo collection** on the profile page
+- **Sorting of saved photos** by date
+- **Profile editing** (available after email verification)
+- **Reusable UI components** (buttons, inputs, modals, photo cards, dropdowns, toasts)
+- Test coverage
 
 ## More details
 
 ### Routing
 
-- App Router. Хуки usePathname, useRouter из next/navigation
-- Защита маршрутов с помощью AuthContext
-- Контент скрыт до завершения аутентификации
-- Редирект на профиль после регистрации и авторизации
-- Редирект с адреса профиля на страницу авторизации для неавторизованных пользователей
-- Страницы:
-  - Главная страница
+- **App Router**. Hooks usePathname, useRouter from next/navigation
+- Route protection with **AuthContext**
+- Content is hidden until authentication is complete
+- **Automatic redirect to the profile page** after successful registration or login
+- **Redirect to the login page** when accessing the profile route as an unauthenticated user
+- **Pages**:
+  - Home
   - Main (Photo of the day)
   - Search (поиск фото)
   - Registration
@@ -62,86 +64,90 @@
 
 ### State Management
 
-- createAsyncThunk для запросов к API
-- slices для состояний фото и избранного
-- firestore для хранения данных о юзере и его коллекции фотографий
-- Синхронизация между redux-стором и firestore
+- **createAsyncThunk** for API requests
+- **Redux slices** for managing photo and favorites state
+- **Firestore** used to store user data and photo collections
+- Synchronization between Redux store and Firestore
 
 ### Loading & Error Handling
 
-- Спиннер при загрузке (поиск фото, загрузка профиля)
-- Тосты с сообщениями:
-  - Успешная и неуспешная регистрация/авторизация
-  - Ошибка при загрузке данных профиля
-- Общая страница ошибки error.tsx
+- **Spinner** shown during loading (e.g., photo search, profile loading)
+- **Toast notifications** for:
+  - Successful or failed registration/login
+  - Profile data load errors
+- Global error page **(error.tsx)**
 
 ### Form Validation
 
-- Валидация форм регистрации и авторизации с Yup и Formik
-- Регистрация: имя, почта (соответствие формату), пароль (не менее 6 символов)
-- Все поля обязательны для заполнения
-- Кнопка submit отключена при некорректном заполнении полей
+- Form validation with **Yup** and **Formik**
+- Registration form requires:
+  - Name
+  - Email (must match valid format)
+  - Password (minimum 6 characters)
+- All fields are required
+- Submit button is disabled until form is valid
 
-### Profile
+### Profile page
 
-- Имя, почта
-- Коллекция фото
-- Сортировка фото по дате
-- Переход на страницу редактирования профиля (необходимо подтверждение почты)
+- Displays user's name and email
+- User's saved photo collection
+- Ability to sort photos by date
+- Access to **profile editing** (only after email verification)
 
 ### Performance Optimizations
 
-- next/image для изображений
-- next/font для шрифтов
-- revalidate для кэширования результата запроса
+- Optimized images with **next/image**
+- Fonts managed via **next/font**
+- **revalidate** used for caching API responses
 
 ### Styling and Responsiveness
 
-- Адаптивная вёрстка до 360px ширины экрана (Tailwind CSS)
-- Навигационная панель складывается в бургер-меню при ширине менее 912px
-- Модальные окна подстраиваются под контент
-- Кнопки поиска и отправки форм неактивны при некорректном заполнении полей
+- Fully responsive layout down to 360px screen width **(Tailwind CSS)**
+- Navigation bar collapses into **a burger menu** on screens narrower than 912px
+- Modal windows adapt to content
+- Search and form submit buttons are disabled until all fields are valid
 
 ### Error Handling in API
 
-- Недостающие данные заменяются заглушками
-- API возвращает полный url следующей страницы. В createAsyncThunk передается либо значение поиска при первом запросе, либо url для пагинации
-- http в url для пагинации заменяется на https (для исключения двойного запроса с редиректом)
+- **Fallback placeholders** used for missing data
+- API returns a **full nextPage URL**
+  - For createAsyncThunk, either the **initial search query** or the **pagination URL** is used
+- **http in pagination URLs is replaced with https** to prevent double requests from redirects
 
 ### Safety
 
-- Ключ API и ключи Firebase хранятся в .env
-- Настроены правила безопасности в Firestore
-- Защита маршрутов
+- API key and Firebase credentials are stored in .env files
+- **Firestore security rules** are configured
+- **Routes are protected** based on authentication state
 
 ## How to start project
 
 in the project directory enter:
 
-```js
+```bash
 npm install
 ```
 
 create .env.local file in the root directory and then run:
 
-```js
+```bash
 npm run dev
 ```
 
 lint:
 
-```js
+```bash
 npm run lint
 ```
 
 build the project:
 
-```js
+```bash
 npm run build
 ```
 
 production mode:
 
-```js
+```bash
 npm start
 ```
