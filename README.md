@@ -1,16 +1,16 @@
-# NASA Data
+# NASA data
 
-App with [NASA](https://api.nasa.gov/) space photos.
+**App with [NASA](https://api.nasa.gov/) space photos, built with Next.js, Redux and TypeScript.** Includes SSR & ISR, Firebase authentication and Firestore for photo storage.
 
 [README на русском](./README.ru.md)
 
-## Deployment
+## 🌐 Deployment
 
-[Deploy](https://datanasa.netlify.app/)
+[Deployment](https://nasa-data-peach.vercel.app/)
 
 <img src="./public/nasa_preview.gif" alt="preview" />
 
-## Technologies
+## 🛠️ Technologies
 
 - **TypeScript**
 - **React**
@@ -24,7 +24,7 @@ App with [NASA](https://api.nasa.gov/) space photos.
 - **ESLint, Prettier**
 - **Nasa API**
 
-## Features
+## 💻 Features
 
 - Photo/Video of the Day page with **Incremental Static Regeneration** (ISR)
 - Photo search
@@ -56,20 +56,20 @@ App with [NASA](https://api.nasa.gov/) space photos.
 - **Pages**:
   - Home
   - Main (Photo of the day)
-  - Search (поиск фото)
+  - Search
   - Registration
   - Login
   - Profile
   - Edit profile
 
-### State Management
+### State management
 
 - **createAsyncThunk** for API requests
 - **Redux slices** for managing photo and favorites state
 - **Firestore** used to store user data and photo collections
 - Synchronization between Redux store and Firestore
 
-### Loading & Error Handling
+### Loading & error handling
 
 - **Spinner** shown during loading (e.g., photo search, profile loading)
 - **Toast notifications** for:
@@ -77,7 +77,7 @@ App with [NASA](https://api.nasa.gov/) space photos.
   - Profile data load errors
 - Global error page **(error.tsx)**
 
-### Form Validation
+### Form validation
 
 - Form validation with **Yup** and **Formik**
 - Registration form requires:
@@ -94,20 +94,20 @@ App with [NASA](https://api.nasa.gov/) space photos.
 - Ability to sort photos by date
 - Access to **profile editing** (only after email verification)
 
-### Performance Optimizations
+### Performance optimizations
 
 - Optimized images with **next/image**
 - Fonts managed via **next/font**
 - **revalidate** used for caching API responses
 
-### Styling and Responsiveness
+### Styling and responsiveness
 
 - Fully responsive layout down to 360px screen width **(Tailwind CSS)**
 - Navigation bar collapses into **a burger menu** on screens narrower than 912px
 - Modal windows adapt to content
 - Search and form submit buttons are disabled until all fields are valid
 
-### Error Handling in API
+### Error handling in API
 
 - **Fallback placeholders** used for missing data
 - API returns a **full nextPage URL**
@@ -120,7 +120,28 @@ App with [NASA](https://api.nasa.gov/) space photos.
 - **Firestore security rules** are configured
 - **Routes are protected** based on authentication state
 
-## How to start project
+## 📁 Architecture
+
+```bash
+__tests__
+public/
+src/app/
+├── context/
+├── hooks/
+├── lib/
+├── main/
+├── redux/
+├── shared/
+├── ui/
+```
+
+## 🪄 How to start project
+
+clone the repository:
+
+```bash
+git clone
+```
 
 in the project directory enter:
 
@@ -128,7 +149,7 @@ in the project directory enter:
 npm install
 ```
 
-create .env.local file in the root directory and then run:
+create **.env.local** file with _.env.example_ in the root directory and then run:
 
 ```bash
 npm run dev

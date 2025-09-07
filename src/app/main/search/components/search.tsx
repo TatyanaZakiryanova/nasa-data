@@ -85,7 +85,7 @@ export default function Search({ initialPhotos }: SearchProps) {
             disabled={status === Status.LOADING || !searchValue}
             className="px-5 py-2 md:w-auto"
           >
-            {status === Status.LOADING ? 'Searching...' : 'Search'}
+            Search
           </Button>
         </Input>
       </div>
