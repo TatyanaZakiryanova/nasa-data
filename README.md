@@ -6,7 +6,9 @@
 
 ## 🌐 Deployment
 
-[Deployment](https://nasa-data-peach.vercel.app/)
+[**Deployment**](https://nasa-data-peach.vercel.app/)
+
+[**VIDEO DEMO**](https://drive.google.com/file/d/1QyTsR4IPEaHVRW78lCCEnze20PO61dHy/view)
 
 <img src="./public/nasa_preview.gif" alt="preview" />
 
