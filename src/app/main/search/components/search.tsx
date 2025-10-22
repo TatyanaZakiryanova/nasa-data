@@ -12,21 +12,19 @@ import Pagination from '@/app/ui/pagination';
 import PhotoCard from '@/app/ui/photo-card';
 import PhotoModal from '@/app/ui/photo-modal';
 
-import { InitialPhoto, Photo } from '../types';
-import { getPhotoDetails } from '../utils';
+import { Photo } from '../types';
 import StatusMessage from './status-message';
 
 interface SearchProps {
-  initialPhotos: InitialPhoto[];
+  initialPhotos: Photo[];
 }
 
 export default function Search({ initialPhotos }: SearchProps) {
   const [searchValue, setSearchValue] = useState<string>('');
   const [isSearched, setIsSearched] = useState<boolean>(false);
-  const [selectedPhoto, setSelectedPhoto] = useState<Photo | InitialPhoto | null>(null);
+  const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [initialStatePhotos, setInitialStatePhotos] = useState<InitialPhoto[]>(initialPhotos);
-  const [selectedPhotoId, setSelectedPhotoId] = useState<string>('');
+  const [initialStatePhotos, setInitialStatePhotos] = useState<Photo[]>(initialPhotos);
   const dispatch = useAppDispatch();
   const { photos, status, totalItems, prevPageUrl, nextPageUrl } = useAppSelector(
     (state) => state.photos,
@@ -57,10 +55,9 @@ export default function Search({ initialPhotos }: SearchProps) {
     [searchValue, dispatch],
   );
 
-  const openModal = (photo: Photo | InitialPhoto, id: string) => {
+  const openModal = (photo: Photo) => {
     setIsModalOpen(true);
     setSelectedPhoto(photo);
-    setSelectedPhotoId(id);
   };
 
   const closeModal = () => {
@@ -96,38 +93,20 @@ export default function Search({ initialPhotos }: SearchProps) {
         totalItems={totalItems}
       />
       <div className="mt-5 flex flex-wrap justify-center">
-        {photos.length > 0
-          ? photos.map((photo) => {
-              const id = photo.nasa_id;
-              return (
-                <PhotoCard
-                  key={photo.nasa_id}
-                  id={photo.nasa_id}
-                  title={photo.title}
-                  imageUrl={photo.imageLink}
-                  center={photo.center}
-                  date={photo.date_created}
-                  description={photo.description}
-                  onClick={() => openModal(photo, id)}
-                />
-              );
-            })
-          : status === Status.IDLE &&
-            initialStatePhotos.map((initialPhoto) => {
-              const id = `${initialPhoto.date}-${initialPhoto.url.split('/').pop()}`;
-              return (
-                <PhotoCard
-                  key={id}
-                  id={id}
-                  title={initialPhoto.title}
-                  imageUrl={initialPhoto.url}
-                  copyright={initialPhoto.copyright}
-                  date={initialPhoto.date}
-                  description={initialPhoto.explanation}
-                  onClick={() => openModal(initialPhoto, id)}
-                />
-              );
-            })}
+        {(photos.length > 0 ? photos : initialStatePhotos).map((photo) => {
+          const id = photo.nasa_id;
+          return (
+            <PhotoCard
+              key={id}
+              id={id}
+              title={photo.title}
+              imageUrl={photo.imageLink}
+              date={photo.date_created}
+              description={photo.description}
+              onClick={() => openModal(photo)}
+            />
+          );
+        })}
       </div>
       {photos.length > 0 && (
         <Pagination
@@ -138,7 +117,13 @@ export default function Search({ initialPhotos }: SearchProps) {
       )}
       {selectedPhoto && (
         <Modal isOpen={isModalOpen} onClose={closeModal} title={selectedPhoto.title}>
-          <PhotoModal {...getPhotoDetails(selectedPhoto, selectedPhotoId)} />
+          <PhotoModal
+            id={selectedPhoto.nasa_id}
+            title={selectedPhoto.title}
+            imageSrc={selectedPhoto.imageLink}
+            description={selectedPhoto.description}
+            date_created={selectedPhoto.date_created}
+          />
         </Modal>
       )}
     </>

@@ -22,8 +22,6 @@ export default function useFavorites({ photo }: useFavoritesProps) {
       title: photo.title,
       imageUrl: photo.imageUrl || '',
       date: photo.date,
-      copyright: photo.copyright || '',
-      center: photo.center || '',
       description: photo.description,
     };
     dispatch(addToFavorites(favoritePhoto));

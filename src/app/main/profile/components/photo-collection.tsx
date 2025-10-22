@@ -109,8 +109,6 @@ export default function PhotoCollection() {
             imageSrc={selectedPhoto.imageUrl}
             description={selectedPhoto.description}
             date_created={selectedPhoto.date}
-            center={selectedPhoto.center}
-            copyright={selectedPhoto.copyright}
           />
         </Modal>
       )}

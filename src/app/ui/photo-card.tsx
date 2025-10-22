@@ -13,22 +13,18 @@ interface PhotoCardProps {
   title: string;
   imageUrl?: string;
   date: string;
-  copyright?: string;
-  center?: string;
   description: string;
   onClick: () => void;
 }
 
 const PhotoCard: React.FC<PhotoCardProps> = React.memo(
-  ({ id, title, imageUrl, date, copyright, center, description, onClick }) => {
+  ({ id, title, imageUrl, date, description, onClick }) => {
     const { user } = useAuth();
     const photo: FavoritePhoto = {
       id,
       title,
       imageUrl: imageUrl || '',
       date,
-      copyright: copyright || '',
-      center: center || '',
       description,
     };
 
@@ -62,7 +58,6 @@ const PhotoCard: React.FC<PhotoCardProps> = React.memo(
             />
           </div>
         )}
-        {copyright && <span className="text-[10px]">{copyright}</span>}
         <span className="text-[10px]">{date.replace('T', ', ').replace('Z', '')}</span>
       </div>
     );

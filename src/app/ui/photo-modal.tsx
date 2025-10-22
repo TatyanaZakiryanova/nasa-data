@@ -13,12 +13,10 @@ interface PhotoModalProps {
   imageSrc?: string;
   description: string;
   date_created: string;
-  center: string | null;
-  copyright: string | null;
 }
 
 const PhotoModal: React.FC<PhotoModalProps> = React.memo(
-  ({ id, title, imageSrc, description, date_created, center, copyright }) => {
+  ({ id, title, imageSrc, description, date_created }) => {
     const { user } = useAuth();
     const [isImageLoaded, setIsImageLoaded] = useState<boolean>(false);
 
@@ -27,8 +25,6 @@ const PhotoModal: React.FC<PhotoModalProps> = React.memo(
       title,
       imageUrl: imageSrc || '',
       date: date_created,
-      copyright: copyright || '',
-      center: center || '',
       description,
     };
 
@@ -59,8 +55,6 @@ const PhotoModal: React.FC<PhotoModalProps> = React.memo(
           </Button>
         )}
         <span className="mb-1 text-[10px]">{date_created.replace('T', ', ').replace('Z', '')}</span>
-        <span className="mb-1 text-[10px]">{center ? `Center: ${center}` : null}</span>
-        <span className="mb-1 text-[10px]">{copyright}</span>
         <p>{description}</p>
       </>
     );
