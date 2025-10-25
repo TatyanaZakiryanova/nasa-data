@@ -6,21 +6,9 @@ import { Photo } from './types';
 export default async function SearchPage() {
   const mediaType = 'image';
   const pageSize = 10;
-  const topics = [
-    'galaxy',
-    'nebula',
-    'mars',
-    'earth',
-    'telescope',
-    'astronaut',
-    'moon',
-    'supernova',
-    'space',
-  ];
-  const randomTopic = topics[Math.floor(Math.random() * topics.length)];
 
   const resMeta = await fetch(
-    `https://images-api.nasa.gov/search?q=${randomTopic}&media_type=${mediaType}`,
+    `https://images-api.nasa.gov/search?q=galaxy&media_type=${mediaType}`,
     {
       cache: 'no-store',
     },
@@ -37,7 +25,7 @@ export default async function SearchPage() {
   const randomPage = Math.floor(Math.random() * maxPage) + 1;
 
   const res = await fetch(
-    `https://images-api.nasa.gov/search?q=${randomTopic}&media_type=${mediaType}&page=${randomPage}&page_size=${pageSize}`,
+    `https://images-api.nasa.gov/search?q=galaxy&media_type=${mediaType}&page=${randomPage}&page_size=${pageSize}`,
     { cache: 'no-store' },
   );
 
