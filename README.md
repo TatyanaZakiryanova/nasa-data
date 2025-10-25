@@ -30,7 +30,7 @@
 
 - Photo/Video of the Day page with **Incremental Static Regeneration** (ISR)
 - Photo search
-- Detailed photo information in a modal window (title, full-size image, date, copyright/center, description)
+- Detailed photo information in a modal window (title, full-size image, date, description)
 - Initial display of a **“Photo of the Day” gallery** before searching with **Server-Side Rendering** (SSR)
 - Pagination
 - Registration with email and password **(Firebase Authentication)**

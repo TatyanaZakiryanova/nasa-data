@@ -16,7 +16,6 @@ export const extractPhotosData = (items: Item[]): Photo[] => {
         imageLink: imageLinkPreview,
         fullImageLink: imageLinkFull,
         date_created: item.data[0]?.date_created || 'Unknown date',
-        center: item.data[0]?.center || 'Unknown center',
       };
     }) || []
   );

@@ -31,7 +31,6 @@ export interface DataItem {
   nasa_id: string;
   description: string;
   date_created: string;
-  center: string;
 }
 
 export interface Item {

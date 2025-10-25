@@ -16,7 +16,6 @@ describe('PhotoModal', () => {
     title: 'Test Photo',
     imageSrc: '/test.jpg',
     date_created: '2024-02-12',
-    copyright: 'Test',
     description: 'desc',
   };
 
@@ -28,8 +27,7 @@ describe('PhotoModal', () => {
       handleToggleFavorite: jest.fn(),
     });
 
-    const photoWithCenter = { ...photo, center: 'NASA' };
-    render(<PhotoModal {...photoWithCenter} />);
+    render(<PhotoModal {...photo} />);
 
     expect(screen.queryByRole('button')).not.toBeInTheDocument();
   });
@@ -42,8 +40,7 @@ describe('PhotoModal', () => {
       handleToggleFavorite: jest.fn(),
     });
 
-    const photoWithCenter = { ...photo, center: 'NASA' };
-    render(<PhotoModal {...photoWithCenter} />);
+    render(<PhotoModal {...photo} />);
 
     expect(screen.getByRole('button')).toBeInTheDocument();
   });
@@ -58,8 +55,7 @@ describe('PhotoModal', () => {
       handleToggleFavorite: handleToggleFavoriteMock,
     });
 
-    const photoWithCenter = { ...photo, center: 'NASA' };
-    render(<PhotoModal {...photoWithCenter} />);
+    render(<PhotoModal {...photo} />);
 
     const buttonElement = screen.getByRole('button');
     fireEvent.click(buttonElement);
@@ -72,8 +68,7 @@ describe('PhotoModal', () => {
       handleToggleFavorite: jest.fn(),
     });
 
-    const photoWithCenter = { ...photo, center: 'NASA' };
-    render(<PhotoModal {...photoWithCenter} />);
+    render(<PhotoModal {...photo} />);
     const buttonElement = screen.getByText(/add to favorites/i);
     expect(buttonElement).toBeInTheDocument();
   });
@@ -84,23 +79,8 @@ describe('PhotoModal', () => {
       handleToggleFavorite: jest.fn(),
     });
 
-    const photoWithCenter = { ...photo, center: 'NASA' };
-    render(<PhotoModal {...photoWithCenter} />);
+    render(<PhotoModal {...photo} />);
     const buttonElement = screen.getByText(/remove from favorites/i);
     expect(buttonElement).toBeInTheDocument();
-  });
-
-  it('display the center value when center is provided', () => {
-    const photoWithCenter = { ...photo, center: 'NASA' };
-    render(<PhotoModal {...photoWithCenter} />);
-
-    expect(screen.getByText(/center: nasa/i)).toBeInTheDocument();
-  });
-
-  it('does not display the center value when center is null', () => {
-    const photoWithNullCenter = { ...photo, center: null };
-    render(<PhotoModal {...photoWithNullCenter} />);
-
-    expect(screen.queryByText(/center/i)).toBeNull();
   });
 });

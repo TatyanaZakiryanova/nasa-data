@@ -40,8 +40,6 @@ describe('useFavorites', () => {
     title: 'Test Photo',
     imageUrl: 'test.jpg',
     date: '2024-02-12',
-    copyright: 'Test',
-    center: 'NASA',
     description: 'desc',
   };
 
