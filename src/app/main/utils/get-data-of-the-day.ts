@@ -2,10 +2,25 @@ import { Photo } from '../search/types';
 
 export const getDataOfTheDay = async (): Promise<Photo> => {
   const pageSize = 1;
+  const topics = [
+    'galaxy',
+    'nebula',
+    'mars',
+    'earth',
+    'telescope',
+    'astronaut',
+    'moon',
+    'supernova',
+    'space',
+  ];
+  const randomTopic = topics[Math.floor(Math.random() * topics.length)];
 
-  const metaRes = await fetch(`https://images-api.nasa.gov/search?q=galaxy&media_type=image`, {
-    cache: 'no-store',
-  });
+  const metaRes = await fetch(
+    `https://images-api.nasa.gov/search?q=${randomTopic}&media_type=image`,
+    {
+      cache: 'no-store',
+    },
+  );
 
   if (!metaRes.ok) throw new Error('Failed to fetch total hits');
   const metaData = await metaRes.json();
@@ -17,7 +32,7 @@ export const getDataOfTheDay = async (): Promise<Photo> => {
   const randomPage = (seed % maxPage) + 1;
 
   const res = await fetch(
-    `https://images-api.nasa.gov/search?q=galaxy&media_type=image&page=${randomPage}&page_size=${pageSize}`,
+    `https://images-api.nasa.gov/search?q=${randomTopic}&media_type=image&page=${randomPage}&page_size=${pageSize}`,
     { next: { revalidate: 86400 } }, // 24 часа
   );
 
